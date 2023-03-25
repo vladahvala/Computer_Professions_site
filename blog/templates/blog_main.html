@@ -7,17 +7,17 @@
             <div class = "row">
                     {% for post in posts %}
                     {% if forloop.first %}
-                    <div class = "col s2 l l2">
+                    <div class="col s2 l2">
                         {% include "sidebar.html" %}
                     </div>
-                    <div class = "col s10 l l5">
+                    <div class = "col s10 l5">
                 {% else %}
                         {% if forloop.counter|divisibleby:2 %}
-                            <div class = "col s2">
+                            <div class="col s2">
                             </div>
-                            <div class = "col s10 l l5">
-                        {% else %}
-                            <div class = "col s10 l l5 offset-s6 offset-l2">
+                            <div class="col s10 l5">    
+                        {%else%}
+                            <div class="col s10 l5 offset-s2  offset-l2">
                         {% endif %}
                 {% endif %}
                         <div class="card hoverable">
@@ -28,12 +28,14 @@
                                 </div>
                                 <span class="card-title">
                                     <a href="/{{ post.post_slug }}">{{ post.title }}</a>
-                                    </span> 
                                 </span>
-                                <h6>Переглянуло: {{ post.get_views_number }}</h6>
                                 <h6>{{ post.created_at }}</h6>
                                 <div class="card-content">{{ post.text|truncatechars:100 }}...</div>
                                 <br><br><br>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title"><a href="/{{ post.post_slug }}">{{ post.title }}</a><i class="material-icons right">close</i></span>
+                                <p>Here is some more information about this product that is only revealed once clicked on.</p>
                             </div>
                         </div>
                     </div>

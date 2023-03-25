@@ -16,26 +16,29 @@
         <div class="navbar-fixed">
           <nav>
               <div class="nav-wrapper pink accent-1">
-                <a href="/" class="brand-logo white-text">Logo</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                  <li>
-                    <form method=POST action="{% url 'search' %}" id="search_nav">
-                        {% csrf_token %}
-                        <input type="search" name="searchpost" placeholder="Шукати статтю">
-                    </form>
-                  </li>
-                  <li><button class="waves-effect waves-light btn" form="search_nav" type="submit">пошук</button></i>
-                  <li><a href="/">Main page</a></li>
-                  <li><a href="/admin">Admin</a></li>
-                  
-                </ul>
+                <a href="/" class="brand-logo blue-text text-darken-2">Logo</a>
+                <a href="/" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
                 <br>
-                <a href="#" class="dropdown-trigger btn show-on-med-and-down hide-on-large"  data-target='dropMenu'>Menu</a>
-                <ul id='dropMenu' class='dropdown-content'>
-                  <li><a href="/admin">Admin</a></li>
-                </ul>
               </div>
             </nav>
+
+            <ul class="sidenav" id="slide-out">
+              <li>
+                <form method=POST action="{% url 'search' %}" id="search_nav">
+                    {% csrf_token %}
+                    <input type="search" name="searchpost" placeholder="Шукати статтю">
+                </form>
+              </li>
+              <li><button class="waves-effect waves-light btn" form="search_nav" type="submit">пошук</button></i>
+              <li><a class="active" href="/">Main page</a></li>
+              <li><a href="/admin">Admin</a></li>
+            </ul>
+          
+          <script>
+              const slide_menu = document.querySelectorAll(".sidenav");
+              M.Sidenav.init(slide_menu, {});
+          </script>
+
         </div>
           {% block content %}
           {% endblock %}

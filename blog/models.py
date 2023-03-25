@@ -33,19 +33,12 @@ class Post(models.Model):
                             height_field=None, width_field=None,
                             max_length=200,
                             verbose_name="Картинка для поста") #поле для зображення
-    views_number = models.ManyToManyField(User, related_name="views_rating", blank=True)
-    likes = models.ManyToManyField(User, related_name="post_likes", blank=True)
-    saving =  models.ManyToManyField(User, related_name="post_savings", blank=True)
     category = models.ForeignKey(Category, default=1, 
                                  on_delete=models.SET_DEFAULT,
                                  verbose_name="Категорія")
-    def get_views_number(self):
-        return self.views_number.count()
         #upload_to='' - папка для завантаження
         #static -  статичні файли 
         #max_length=200 - максимальна довжина посилання на зображення
-    def get_likes_number(self):
-        return self.likes.count()
     def save(self, *arg, **kwargs): #ф-ція для збереження картинок на сайт, < зображення
         super().save() #збереження для класу models
         img = Image.open(self.img.path) #шлях зображення
