@@ -13,6 +13,18 @@
               var instances = M.Dropdown.init(elems);
             });
         </script>
+        <ul class="sidenav" id="slide-out">
+          <li>
+            <form method=POST action="{% url 'search' %}" id="search_nav">
+                {% csrf_token %}
+                <input type="search" name="searchpost" placeholder="Шукати статтю">
+            </form>
+          </li>
+          <li><button class="waves-effect waves-light btn" form="search_nav" type="submit">пошук</button></i>
+          <li><a class="active" href="/">Main page</a></li>
+          <li><a href="/admin">Admin</a></li>
+        </ul>
+        
         <div class="navbar-fixed">
           <nav>
               <div class="nav-wrapper pink accent-1">
@@ -22,17 +34,6 @@
               </div>
             </nav>
 
-            <ul class="sidenav" id="slide-out">
-              <li>
-                <form method=POST action="{% url 'search' %}" id="search_nav">
-                    {% csrf_token %}
-                    <input type="search" name="searchpost" placeholder="Шукати статтю">
-                </form>
-              </li>
-              <li><button class="waves-effect waves-light btn" form="search_nav" type="submit">пошук</button></i>
-              <li><a class="active" href="/">Main page</a></li>
-              <li><a href="/admin">Admin</a></li>
-            </ul>
           
           <script>
               const slide_menu = document.querySelectorAll(".sidenav");
