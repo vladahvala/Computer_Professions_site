@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import Post, Comment, Category
+from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from .forms import AddCommentForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 #дані збираються з бази даних, відправляються на html-сторінку, потім рендеряться(готуються) і відправляються назад користувачу
@@ -61,6 +65,10 @@ def slug_process(request, slug):
     post_slugs = [p.post_slug for p in Post.objects.all() ]
     if slug in post_slugs:
         post = Post.objects.get(post_slug = slug)
+        if request.user.is_authenticated:
+            if not post.views_number.filter(id=request.user.id).exists():
+                #filter - повертає об'єкти, які відповідають певному параметру
+                post.views_number.add(request.user)
         comments = Comment.objects.filter(post=post) #змінна=елементові класу post
         form = get_comment_form(request, post)
         data_dict = { 'post': post, 
@@ -69,3 +77,23 @@ def slug_process(request, slug):
                       'sidebar': sidebar,
                     }
         return render(request, 'post_view.html', data_dict)
+
+def register(request):
+    #POST incoming
+    if request.method == "POST":
+        form = RegisterForm(request.POST)#POST - словник зі всіма даними користувачі
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            username = form.cleaned_data.get("username")
+            messages.success(request, f"Створено новий акаунт: {username}")
+            return redirect("/")
+        else:
+            print("ERROR DURING REGISTRATION!+")
+            for msg in form.error_messages:
+                messages.error(request, f"{msg}")
+            return render(request, 'register.html', {'form': form})
+    
+    #GET incoming
+    data_dict = {'form': RegisterForm}
+    return render(request, 'register.html', data_dict)

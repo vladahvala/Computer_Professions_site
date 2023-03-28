@@ -3,6 +3,12 @@ from django.utils import timezone
 from PIL import Image #pillow - бібліотека для роботи із зображеннями
 from django.contrib.auth.models import User
 
+#makemigrations - створює інструкції для додавання нової таблиці в базу даних
+#migrate - виконує ці інструкції
+
+#Post - публікація. кожен ряд в таблиці - відомості про 1 публікацію
+    #кожна його властивість - колонка у таблиці, котра теж назвивається Post 
+    
 class Category(models.Model):
     name = models.CharField(max_length=80)
     info = models.TextField(blank=True)
@@ -36,15 +42,6 @@ class Post(models.Model):
     category = models.ForeignKey(Category, default=1, 
                                  on_delete=models.SET_DEFAULT,
                                  verbose_name="Категорія")
-        #upload_to='' - папка для завантаження
-        #static -  статичні файли 
-        #max_length=200 - максимальна довжина посилання на зображення
-    def save(self, *arg, **kwargs): #ф-ція для збереження картинок на сайт, < зображення
-        super().save() #збереження для класу models
-        img = Image.open(self.img.path) #шлях зображення
-        if img.height > 720 or img.width > 1080:
-            img.thumbnail((720, 1080))
-            img.save(self.img.path)
     def __str__(self): #при викликанні print буде повертатися саме заголовок(title)
         return self.title
 

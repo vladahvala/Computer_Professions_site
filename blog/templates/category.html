@@ -28,6 +28,7 @@
                                 <a href="/{{ post.post_slug }}">{{ post.title }}</a>
                                 </span> 
                             </span>
+                            <h6>Переглянуло: {{ post.get_views_number }}</h6>
                             <h6>{{ post.created_at }}</h6>
                             <div class="card-content">{{ post.text|truncatechars:100 }}...</div>
                             <br><br><br>
