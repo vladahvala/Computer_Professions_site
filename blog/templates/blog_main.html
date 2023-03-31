@@ -1,4 +1,36 @@
 {% extends 'navbar.html' %}
+            {% block carousel %}
+            <div class = "container">
+                <div class="carousel carousel-slider center">
+                    {% for post in slide_posts %}
+                    <div class="carousel-item white white-text" href="/{{ post.post_slug }}">
+                        <div class="card">
+                            <span class="card-title">
+                                <b><a href="/{{ post.post_slug }}">{{ post.title }}</a></b>
+                            </span>
+                            <div class="card-image">
+                                <img class = "center-align responsive-img"
+                                src="/{{ post.img }}">
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var elems = document.querySelectorAll('.carousel');
+                    var instances = M.Carousel.init(elems, {
+                        fullWidth: false,
+                        indicators: true,
+                        numVisible: 3,
+                        dist: -200,
+                    });
+                });
+            </script>
+            {% endblock  %}
 
     {% block content %}
     <div class = "container">
@@ -17,32 +49,33 @@
                             </div>
                             <div class="col s10 l5">    
                         {%else%}
-                            <div class="col s10 l5 offset-s2  offset-l2">
+                            <div class="col s10 l5 offset-s1  offset-l2">
                         {% endif %}
                 {% endif %}
                         <div class="card hoverable">
+                            <div class="card-image">    
+                                <img class = "center-align responsive-img"
+                                src="/{{ post.img }}">
+                                <a class="btn btn-floating btn-large halfway-fab pulse activator #ef5350 red lighten-1"><i class="material-icons right">add</i></a>
+                            </div>
+
                             <div class="card-content">
-                                <div class="card-image">
-                                    <img class = "center-align responsive-img"
-                                    src="/{{ post.img }}">
-                                </div>
                                 <span class="card-title">
                                     <a href="/{{ post.post_slug }}">{{ post.title }}</a>
                                 </span>
-                                <h6>{{ post.created_at }}</h6>
-                                <div class="card-content">{{ post.text|truncatechars:100 }}...</div>
-                                <br><br><br>
                             </div>
+
                             <div class="card-reveal">
                                 <span class="card-title"><a href="/{{ post.post_slug }}">{{ post.title }}</a><i class="material-icons right">close</i></span>
-                                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                                <p><div class="card-content">{{ post.text|truncatechars:150 }}...</div></p>
                             </div>
+                            <br>
                         </div>
                     </div>
                 {% endfor %}
             </div>
         
-            <div class="row">
+            <div class="row center-align">
                 <div class = "col s2">
                 </div>
                 <ul class="pagination">

@@ -14,21 +14,42 @@
             });
         </script>
         <ul class="sidenav" id="slide-out">
-          <li>
-            <form method=POST action="{% url 'search' %}" id="search_nav">
-                {% csrf_token %}
-                <input type="search" name="searchpost" placeholder="Шукати статтю">
-            </form>
-          </li>
-          <li><button class="waves-effect waves-light btn" form="search_nav" type="submit">пошук</button></i>
-          <li><a class="active" href="/">Main page</a></li>
-          <li><a href="/admin">Admin</a></li>
+          <div class="row center-align">
+            <u class="blue-text"><b><h3 class="blue-text">меню</h3></b></u>
+          </div>
+          <div class="row">
+              <div class="col s1">
+                  <button class="waves-effect waves-light btn #ef5350 red lighten-1" form="search_nav" type="submit"><i class="material-icons">search</i></button>
+              </div>   
+              <div class="col s8 offset-s2">             
+                  <form method=POST action="{% url 'search' %}" id="search_nav">
+                    {% csrf_token %}
+                    <input type="search" name="searchpost" placeholder="Шукати статтю">
+                  </form> 
+              </div> 
+          </div>
+          <div class="row">
+            <div class="col s1">
+              <i class="small material-icons red-text">attachment</i> 
+            </div>      
+            <div class="col s8 offset-s1"> 
+              <a class="active" href="/">Головна</a>
+            </div>
+          </div> 
+          <div class="row">
+            <div class="col s1">
+              <i class="small material-icons red-text">attachment</i> 
+            </div>      
+            <div class="col s8 offset-s1"> 
+              <a href="/admin">Адміністратор</a>
+            </div>
+          </div>  
         </ul>
         
         <div class="navbar-fixed">
           <nav>
-              <div class="nav-wrapper pink accent-1">
-                <a href="/" class="brand-logo blue-text text-darken-2">Logo</a>
+              <div class="nav-wrapper #ef5350 red lighten-1">
+                <a href="/" class="brand-logo white-text text-darken-2 center">Комп'ютерні спеціальності</a>
                 <a href="/" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
                 <br>
               </div>
@@ -41,6 +62,14 @@
           </script>
 
         </div>
+        <br><br>
+        <div class = "row">
+          <div class="col s9 offset-s2">
+              {% block carousel %}
+              {% endblock  %}
+          </div>
+        </div>
+
           {% block content %}
           {% endblock %}
  

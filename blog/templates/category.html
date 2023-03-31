@@ -2,39 +2,42 @@
 
     {% block content %}
             <div class = "container">
-            <div class = "row ">
-                {% for post in posts %}
-                {% if forloop.first %}
-                    <div class = "col s2 l l2">
+                <div class = "row">
+                    {% for post in posts %}
+                    {% if forloop.first %}
+                    <div class="col s2 l2">
                         {% include "sidebar.html" %}
                     </div>
-                    <div class = "col s10 l l5">
+                    <div class = "col s10 l5">
                 {% else %}
                         {% if forloop.counter|divisibleby:2 %}
-                            <div class = "col s2">
+                            <div class="col s2">
                             </div>
-                            <div class = "col s10 l l5">
-                        {% else %}
-                            <div class = "col s10 l l5 offset-s6 offset-l2">
+                            <div class="col s10 l5">    
+                        {%else%}
+                            <div class="col s10 l5 offset-s1  offset-l2">
                         {% endif %}
                 {% endif %}
-                    <div class="card hoverable">
-                        <div class="card-content">
-                            <div class="card-image">
+                        <div class="card hoverable">
+                            <div class="card-image">    
                                 <img class = "center-align responsive-img"
                                 src="/{{ post.img }}">
+                                <a class="btn btn-floating btn-large halfway-fab pulse activator #ef5350 red lighten-1"><i class="material-icons right">add</i></a>
                             </div>
-                            <span class="card-title">
-                                <a href="/{{ post.post_slug }}">{{ post.title }}</a>
-                                </span> 
-                            </span>
-                            <h6>Переглянуло: {{ post.get_views_number }}</h6>
-                            <h6>{{ post.created_at }}</h6>
-                            <div class="card-content">{{ post.text|truncatechars:100 }}...</div>
-                            <br><br><br>
+
+                            <div class="card-content">
+                                <span class="card-title">
+                                    <a href="/{{ post.post_slug }}">{{ post.title }}</a>
+                                </span>
+                            </div>
+
+                            <div class="card-reveal">
+                                <span class="card-title"><a href="/{{ post.post_slug }}">{{ post.title }}</a><i class="material-icons right">close</i></span>
+                                <p><div class="card-content">{{ post.text|truncatechars:150 }}...</div></p>
+                            </div>
+                            <br>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
     {% endblock %}
