@@ -1,7 +1,7 @@
 {% extends 'navbar.html' %}
 
             {% block carousel %}
-            <div class = "container">
+            <div class = "container hide-on-med-and-down">
                 <div class="carousel carousel-slider center">
                     {% for post in slide_posts %}
                     <div class="carousel-item white white-text" href="/{{ post.post_slug }}">
@@ -49,13 +49,13 @@
                         </div>
                         <div class="col s10 l5">    
                     {%else%}
-                        <div class="col s10 l5 offset-s1  offset-l2">
+                        <div class="col s10 l5 offset-s2 offset-l2">
                     {% endif %}
             {% endif %}
                         <div class="card hoverable">
                             <div class="card-image">    
-                                <img class = "center-align responsive-img"
-                                src="/{{ post.img }}">
+                                <img class = "center-align responsive-img">
+                                    <img src="/{{ post.img }}">
                                 <a class="btn btn-floating btn-large halfway-fab pulse activator #ef5350 red lighten-1"><i class="material-icons right">add</i></a>
                             </div>
 

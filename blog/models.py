@@ -42,15 +42,20 @@ class Post(models.Model):
     category = models.ForeignKey(Category, default=1, 
                                  on_delete=models.SET_DEFAULT,
                                  verbose_name="Категорія")
+    
     def __str__(self): #при викликанні print буде повертатися саме заголовок(title)
         return self.title
+    def save(self,*agr, **kwargs):
+        super().save()
+        img = Image.open(self.img.path)
+        if img.height>650 or img.width>650:
+            img.thumbnail((650, 650))
+            img.save(self.img.path)
 
     
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments",)
-    #.CASCADE - каскадне видалення коментарів при видаленні поста
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+    content = models.TextField(verbose_name="Уміст:")
     created_at = models.DateField(default=timezone.now)
     def __str__(self): 
         return self.content

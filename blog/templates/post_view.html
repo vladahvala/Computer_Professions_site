@@ -29,16 +29,25 @@
                         <form method="POST">
                             {% csrf_token %} 
                             {{ comment_form.as_p }}
-                            <button class="btn" type="submit">Опублікувати</button>
+                            <button class="btn" type="submit">Опублікувати<i class="material-icons right">send</i></button>
                         </form>
                     </div>
                 <br><br>
                 {% for comment in comments %}
-                <div class="card-panel #bbdefb blue lighten-4">
-                    <div class="row">
-                        <div class="col s8 l10">
-                            <p>{{ comment }}</p>
-                            <p>{{ comment.created_at }}</p>
+                <div class="row valign-wrapper">
+                    <div class="col s12 l12">
+                        <div class= "card-panel #ff5252 red accent-2">
+                            <div class= "card-content">
+                                <div class="row" align="justify">
+                                    <div class="col s12">
+                                        <div class="card-panel #ffebee red lighten-5">
+                                            <p>{{ comment }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="white-text">Дата написання коментаря: <i>{{ comment.created_at }}</i></span>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>

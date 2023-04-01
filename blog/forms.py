@@ -5,8 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class AddCommentForm(forms.ModelForm):
-    content = forms.CharField(widget= forms.Textarea(attrs={'placeholder':'Comment here...', 'class':'form-control'}))
-    #placeholder - текст, який пишеться перед тим як користувач ставить туди курсор
+    content = forms.CharField(widget= forms.Textarea(attrs={'placeholder':'Введіть коментар...', 'class':'form-control'}))
     class Meta:
         model = Comment
         fields = ['content']
