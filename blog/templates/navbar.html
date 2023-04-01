@@ -7,12 +7,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </head>
     <body>
-        <script>  
-            document.addEventListener('DOMContentLoaded', function() {
-              var elems = document.querySelectorAll('.dropdown-trigger');
-              var instances = M.Dropdown.init(elems);
-            });
-        </script>
+
         <ul class="sidenav" id="slide-out">
           <div class="row center-align">
             <u class="blue-text"><b><h3 class="blue-text">меню</h3></b></u>
@@ -45,17 +40,43 @@
             </div>
           </div>  
         </ul>
+
+        <ul id='dropMenu' class='dropdown-content'>
+          {% for cat in category %}
+            <li><a href="/{{cat.category_slug}}">{{cat.name}}</a></li>
+          {% endfor %}
+        </ul>
         
         <div class="navbar-fixed">
           <nav>
               <div class="nav-wrapper #ef5350 red lighten-1">
-                <a href="/" class="brand-logo white-text text-darken-2 center">Комп'ютерні спеціальності</a>
-                <a href="/" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+                <div class="row">
+                  <div class="col s1"> 
+                    <a href="/" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+                  </div>
+                  <div class="col offset-s3">                    
+                    <a href="/" class="brand-logo white-text text-darken-2">Комп'ютерні спеціальності</a>
+                  </div>
+                  <div class="col offset-s8">
+                      <a href="/" class="dropdown-trigger btn show-on-med-and-down" data-target='dropMenu'>категорії спеціальностей</a>
+                    </div>
+                  </div>
+                </div>
                 <br>
               </div>
-            </nav>
+          </nav>
 
-          
+            
+        <script>  
+            document.addEventListener('DOMContentLoaded', function() {
+              var elems = document.querySelectorAll('.dropdown-trigger');
+              var instances = M.Dropdown.init(elems, {
+                outDuration:1000,
+                hover:true
+              });
+            });
+        </script>
+
           <script>
               const slide_menu = document.querySelectorAll(".sidenav");
               M.Sidenav.init(slide_menu, {});

@@ -1,4 +1,5 @@
 {% extends 'navbar.html' %}
+
             {% block carousel %}
             <div class = "container">
                 <div class="carousel carousel-slider center">
@@ -6,7 +7,7 @@
                     <div class="carousel-item white white-text" href="/{{ post.post_slug }}">
                         <div class="card">
                             <span class="card-title">
-                                <b><a href="/{{ post.post_slug }}">{{ post.title }}</a></b>
+                                <b><h4><a href="/{{ post.post_slug }}">{{ post.title }}</a></h4></b>
                             </span>
                             <div class="card-image">
                                 <img class = "center-align responsive-img"
@@ -37,21 +38,20 @@
         <br><br><br>
         {% if posts %}
             <div class = "row">
-                    {% for post in posts %}
-                    {% if forloop.first %}
-                    <div class="col s2 l2">
-                        {% include "sidebar.html" %}
-                    </div>
-                    <div class = "col s10 l5">
-                {% else %}
-                        {% if forloop.counter|divisibleby:2 %}
-                            <div class="col s2">
-                            </div>
-                            <div class="col s10 l5">    
-                        {%else%}
-                            <div class="col s10 l5 offset-s1  offset-l2">
-                        {% endif %}
-                {% endif %}
+                {% for post in posts %}
+                {% if forloop.first %}
+                <div class="col s2 l2">
+                </div>
+                <div class = "col s10 l5">
+            {% else %}
+                    {% if forloop.counter|divisibleby:2 %}
+                        <div class="col s2">
+                        </div>
+                        <div class="col s10 l5">    
+                    {%else%}
+                        <div class="col s10 l5 offset-s1  offset-l2">
+                    {% endif %}
+            {% endif %}
                         <div class="card hoverable">
                             <div class="card-image">    
                                 <img class = "center-align responsive-img"
@@ -61,7 +61,7 @@
 
                             <div class="card-content">
                                 <span class="card-title">
-                                    <a href="/{{ post.post_slug }}">{{ post.title }}</a>
+                                    <b><h4><a href="/{{ post.post_slug }}">{{ post.title }}</a></h4></b>
                                 </span>
                             </div>
 

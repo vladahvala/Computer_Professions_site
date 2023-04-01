@@ -6,7 +6,6 @@
                     {% for post in posts %}
                     {% if forloop.first %}
                     <div class="col s2 l2">
-                        {% include "sidebar.html" %}
                     </div>
                     <div class = "col s10 l5">
                 {% else %}
@@ -27,7 +26,7 @@
 
                             <div class="card-content">
                                 <span class="card-title">
-                                    <a href="/{{ post.post_slug }}">{{ post.title }}</a>
+                                    <b><h4><a href="/{{ post.post_slug }}">{{ post.title }}</a></h4></b>
                                 </span>
                             </div>
 

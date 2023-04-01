@@ -54,13 +54,13 @@ def slug_process(request, slug):
     """Search URL in category slugs first and if no mathing
     Than searsh URL in post slugs
     In both cases show sidebar with categories"""
-    sidebar = Category.objects.all()
-    categories = [ c.category_slug for c in sidebar]
+    category = Category.objects.all()
+    categories = [ c.category_slug for c in category]
     if slug in categories:
         category_posts = Post.objects.filter(category__category_slug=slug)
         return render(request, "category.html", {
             "posts" : category_posts, 
-            "sidebar": sidebar
+            "category": category
         })
 
     post_slugs = [p.post_slug for p in Post.objects.all() ]
@@ -71,7 +71,7 @@ def slug_process(request, slug):
         data_dict = { 'post': post, 
                       'comment_form': form,
                       'comments': comments,
-                      'sidebar': sidebar,
+                      'category': category,
                     }
         return render(request, 'post_view.html', data_dict)
 
