@@ -1,19 +1,18 @@
 {% extends 'navbar.html' %}
 
-            {% block carousel %}
-            <div class = "container hide-on-med-and-down">
+        {% block carousel %}
+            <div class = "container">
                 <div class="carousel carousel-slider center">
                     {% for post in slide_posts %}
                     <div class="carousel-item white white-text" href="/{{ post.post_slug }}">
                         <div class="card">
                             <span class="card-title">
-                                <b><h4><a href="/{{ post.post_slug }}">{{ post.title }}</a></h4></b>
+                                <b><h5><a href="/{{ post.post_slug }}">{{ post.title }}</a></h5></b>
                             </span>
                             <div class="card-image">
                                 <img class = "center-align responsive-img"
                                 src="/{{ post.img }}">
                             </div>
-
                         </div>
                     </div>
                     {% endfor %}
@@ -25,17 +24,20 @@
                     var elems = document.querySelectorAll('.carousel');
                     var instances = M.Carousel.init(elems, {
                         fullWidth: false,
-                        indicators: true,
+                        indicators:true,
                         numVisible: 3,
-                        dist: -200,
+                        dist: -250,
                     });
+                    setInterval(function(){
+                        M.Carousel.getInstance(elems[0]).next();
+                    }, 4000);
                 });
             </script>
             {% endblock  %}
 
     {% block content %}
     <div class = "container">
-        <br><br><br>
+        <br>
         {% if posts %}
             <div class = "row">
                 {% for post in posts %}
@@ -61,7 +63,7 @@
 
                             <div class="card-content">
                                 <span class="card-title">
-                                    <b><h4><a href="/{{ post.post_slug }}">{{ post.title }}</a></h4></b>
+                                    <b><h5><a href="/{{ post.post_slug }}">{{ post.title }}</a></h5></b>
                                 </span>
                             </div>
 
@@ -74,6 +76,7 @@
                     </div>
                 {% endfor %}
             </div>
+
         
             <div class="row center-align">
                 <div class = "col s2">
@@ -103,4 +106,17 @@
 
         {% endif %}
     </div>
+    <br><br><br>
+    <div class="section red">
+      <div class="container">
+    <pre><h5>Ви долистали до кінця!</h5>                           
+    Джерело інформації: www.education.ua                                  Конфіденційність: уся інформація захищена
+  
+    Дані розробника:
+    <i>Instagram</i> - korovay_z_sillyu
+    <i>Email</i> - vladahvala8@gmail.com
+
+© Programming.ua
+          </pre>
+        </div>
     {% endblock %}

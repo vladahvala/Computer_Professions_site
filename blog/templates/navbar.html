@@ -23,22 +23,9 @@
                   </form> 
               </div> 
           </div>
-          <div class="row">
-            <div class="col s1">
-              <i class="small material-icons red-text">attachment</i> 
-            </div>      
-            <div class="col s8 offset-s1"> 
-              <a class="active" href="/">Головна</a>
-            </div>
-          </div> 
-          <div class="row">
-            <div class="col s1">
-              <i class="small material-icons red-text">attachment</i> 
-            </div>      
-            <div class="col s8 offset-s1"> 
-              <a href="/admin">Адміністратор</a>
-            </div>
-          </div>  
+          <li><a class="active" href="/"><i class="material-icons red-text">home</i>Головна</a></li>
+          <li><a href="/posts"><i class="material-icons red-text">laptop_mac</i>Спеціальності</a></li>
+          <li><a href="/admin"><i class="material-icons red-text">https</i>Адміністратор</a></li>
         </ul>
 
         <ul id='dropMenu' class='dropdown-content'>
@@ -51,14 +38,15 @@
           <nav>
               <div class="nav-wrapper #ef5350 red lighten-1">
                 <div class="row">
-                  <div class="col s1"> 
-                    <a href="/" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
-                  </div>
-                  <div class="col offset-s3">                    
-                    <a href="/" class="brand-logo white-text text-darken-2 hide-on-med-and-down">Комп'ютерні спеціальності</a>
-                  </div>
-                  <div class="col offset-s8">
-                      <a href="/" class="dropdown-trigger btn hide-on-med-and-down" data-target='dropMenu'>категорії спеціальностей</a>
+                  <a href="/" data-target="slide-out" class="sidenav-trigger show-on-med-and-down"><i class="material-icons">menu</i></a>
+                    <ul class="hide-on-med-and-down left">
+                      <li><a class="waves-effect waves-light" href="/">Головна</a></li>
+                      <li><a class="waves-effect waves-light" href="/posts">Спеціальності</a></li>
+                      <li><a class="waves-effect waves-light" href="/admin">Адміністратор</a></li>
+                    </ul>                
+                    <a href="/" class="brand-logo white-text text-darken-2 hide-on-med-and-down center">Logo</a>
+                  <div class="col offset-s7">
+                      <a href="/" class="dropdown-trigger btn hide-on-med-and-down #ff1744 red accent-3" data-target='dropMenu'>категорії спеціальностей</a>
                     </div>
                   </div>
                 </div>

@@ -1,0 +1,145 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <style>
+        .parallax-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="sidenav" id="slide-out">
+        <div class="row center-align">
+          <u class="blue-text"><b><h3 class="blue-text">меню</h3></b></u>
+        </div>
+        <div class="row">
+            <div class="col s1">
+                <button class="waves-effect waves-light btn #ef5350 red lighten-1" form="search_nav" type="submit"><i class="material-icons">search</i></button>
+            </div>   
+            <div class="col s8 offset-s2">             
+                <form method=POST action="{% url 'search' %}" id="search_nav">
+                  {% csrf_token %}
+                  <input type="search" name="searchpost" placeholder="Шукати статтю">
+                </form> 
+            </div> 
+        </div>
+        <li><a class="active" href="/"><i class="material-icons red-text">home</i>Головна</a></li>
+        <li><a href="/posts"><i class="material-icons red-text">laptop_mac</i>Спеціальності</a></li>
+        <li><a href="/admin"><i class="material-icons red-text">https</i>Адміністратор</a></li>
+      </ul>
+
+      <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper #ef5350 red lighten-1">
+              <div class="row">
+                <a href="/" data-target="slide-out" class="sidenav-trigger show-on-med-and-down"><i class="material-icons">menu</i></a>
+                  <ul class="hide-on-med-and-down left">
+                    <li><a class="waves-effect waves-light" href="/">Головна</a></li>
+                    <li><a class="waves-effect waves-light" href="/posts">Спеціальності</a></li>
+                    <li><a class="waves-effect waves-light" href="/admin">Адміністратор</a></li>
+                  </ul>                
+                  <a href="/" class="brand-logo white-text text-darken-2 hide-on-med-and-down center">Logo</a>
+                </div>
+              </div>
+              <br>
+            </div>
+        </nav>
+
+        <script>
+            const slide_menu = document.querySelectorAll(".sidenav");
+            M.Sidenav.init(slide_menu, {});
+        </script>
+
+    <div class="parallax-container">
+        <div class="parallax">
+            <img src="blog/static/img/parallax/comp.jpg" alt="works" class="responsive-img">
+        </div>
+    </div>
+
+    <div class="section white" >
+        <div class="container">
+            <h1 class="black-text center"><b>Комп'ютерні спеціальності</b></h1>
+            <p class="center"><i>Останнім часом професії у сфері IT набирають свою популярність...</i></p>
+            <p>- по-перше, це дуже цікава діяльність, яка дозволяє створювати чудові продукти і проєкти власними руками;</p>
+            <p>- по-друге, програмування і комп’ютерні спеціальності високо цінуються в сучасному суспільстві, тому справжні професіонали 
+                своєї справи можуть розраховувати на пристойну заробітну плату;</p>
+            <p>- по-третє, робота з комп’ютерами не зобов’язує наявність офісу або певного місця праці, тому цілком своєю справою можна займатися вдома або в кафе.</p>
+            <p>Крім цього, потрібно враховувати, що розвиток технологій зобов’язує всіх людей, так чи інакше, розбиратися в «залізі». Складно уявити, наскільки полегшило роботу деяких спеціальностях впровадження програм і комп’ютерів.
+            <p>Перспективи IT-професій зараз дуже цікавлять молодь. Тому в статті будуть розглянуті найпопулярніші, вигідні і прибуткові професії, пов’язані з комп’ютером.</p>
+        <br><br>
+        </div>
+    </div>       
+    
+    <div class="parallax-container">
+        <div class="parallax">
+            <img src="blog/static/img/parallax/code.jpg" alt="works" class="responsive-img">
+        </div>
+    </div>
+
+    <div class="section white">
+        <div class="container">
+            <blockquote class="#ffebee red lighten-5">
+                <h1 class="red-text text-lighten-1">Зміст статті</h1>
+            </blockquote>
+            <br>
+            <pre>• Адміністратор баз даних          • Програміст 1С
+
+• Веб-дизайнер                     • Аналітик
+
+• Веб-програміст                   • Редактор сайтів
+
+• Бізнес-аналітик                  • Системний адміністратор
+
+• Верстальник                      • Системний аналітик
+
+• Консультант ERP-систем           • Спеціаліст з безпеки інформації
+
+• Менеджер з продажу               • Сценарист комп’ютерних ігор
+
+• Контент-менеджер                 • Тестувальник ПЗ
+
+• Менеджер інтерненет-проєктів     • ERP-програміст
+
+• Програміст                       • HTML-верстальник</pre>
+            <br>    
+        </div>
+    </div>      
+
+    <div class="section red">
+        <div class="container">
+    <pre><h5>Ви долистали до кінця!</h5>                           
+    Джерело інформації: www.education.ua                                  Конфіденційність: уся інформація захищена
+
+    Дані розробника:
+    <i>Instagram</i> - korovay_z_sillyu
+    <i>Email</i> - vladahvala8@gmail.com
+
+© Programming.ua
+            </pre>
+        </div>
+    </div>       
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.parallax');
+            var instances = M.Parallax.init(elems, {});
+          });        
+    </script>
+</body>
+</html>
+
+
+
+

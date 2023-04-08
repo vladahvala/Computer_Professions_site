@@ -10,10 +10,18 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 #дані збираються з бази даних, відправляються на html-сторінку, потім рендеряться(готуються) і відправляються назад користувачу
 
-def blog_main(request, *args):
+def main(request, *args):
+    page = request.GET.get('page')
+    category = Category.objects.all()
+    data_dict = {
+        'category': category,
+    }
+    return render(request, 'main.html', data_dict)
+
+def posts(request, *args):
     page = request.GET.get('page')
     posts = Post.objects.all()
-    sidebar = Category.objects.all()
+    category = Category.objects.all()
     paginator = Paginator(posts, 4) #кількість постів, що відображаються на сторінці
     try:
         data_page = paginator.page(page)
@@ -24,9 +32,9 @@ def blog_main(request, *args):
     data_dict = {
         "slide_posts": posts,
         "posts": data_page,
-        "sidebar": sidebar,
+        'category': category,
     }
-    return render(request, 'blog_main.html', data_dict)#запит, адреса, словник із даними
+    return render(request, 'posts.html', data_dict)#запит, адреса, словник із даними
 
 def search_post(request):
     """Functionality for navbar to process search form"""
@@ -35,7 +43,7 @@ def search_post(request):
         text = request.POST.get("searchpost")#отримуємо ім'я інпута із html-файла
         posts = Post.objects.filter(title__icontains=text) #шукаємо по полю title і lookup-пу icontains
     data_dict = { "posts": posts }
-    return render(request, 'blog_main.html', data_dict)
+    return render(request, 'posts.html', data_dict)
 
 def get_comment_form(request, post):
     """Post user commentary Form processing"""
@@ -43,7 +51,7 @@ def get_comment_form(request, post):
         form = AddCommentForm(request.POST)
         if form.is_valid():
             content = request.POST.get('content')
-            comment = Comment.objects.create(post=post, author=request.user, content=content)
+            comment = Comment.objects.create(post=post, content=content)
             comment.save()#зберігаємо об'єкт в базі данних
         return redirect(f'/{post.post_slug}')
     else:
