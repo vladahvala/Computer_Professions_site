@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path(r'', views.main), 
-    path('posts/', views.posts), 
-    path('searchpost/', views.search_post, name="search"),
+    path('posts/', views.PostListMain.as_view()), 
+    path('searchpost/', views.PostSearchView.as_view(), name="search"),
     path('<slug>/', views.slug_process), #з <> дані передаються в views.blog_main
 ]

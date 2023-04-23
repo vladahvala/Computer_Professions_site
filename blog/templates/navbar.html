@@ -43,14 +43,14 @@
                       <li><a class="waves-effect waves-light" href="/">Головна</a></li>
                       <li><a class="waves-effect waves-light" href="/posts">Спеціальності</a></li>
                       <li><a class="waves-effect waves-light" href="/admin">Адміністратор</a></li>
-                      <li><button class="btn-large waves-effect waves-light #ef5350 red lighten-1" form="search_nav" type="submit" name="action"><i class="large material-icons center">search</i></buton></li>
+                      <li><button class="btn-large waves-effect waves-light #ef5350 red lighten-1" form="search_nav" type="submit"><i class="large material-icons center">search</i></buton></li>
                     </ul> 
                       <div class="col s2 hide-on-med-and-down">             
-                      <form method=POST action="{% url 'search' %}" id="search_nav">
-                        {% csrf_token %}
-                        <input type="search" name="searchpost" placeholder="Шукати статтю">
-                      </form> 
-                  </div> 
+                        <form method="GET" action="{% url 'search' %}" id="search_nav">
+                          {% csrf_token %}
+                          <input type="text" name="searchpost" value='{{ request.GET.searchpost }}' placeholder="Шукати статтю">
+                        </form> 
+                      </div> 
                     <a href="/" class="brand-logo white-text text-darken-2 hide-on-med-and-down center">Logo</a>
                   <div class="col offset-s4">
                       <a href="/posts" class="dropdown-trigger btn hide-on-med-and-down #ff1744 red accent-3" data-target='dropMenu'>категорії спеціальностей</a>

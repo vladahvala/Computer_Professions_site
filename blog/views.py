@@ -6,6 +6,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import AddCommentForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.views.generic.list import ListView
 
 # Create your views here.
 #дані збираються з бази даних, відправляються на html-сторінку, потім рендеряться(готуються) і відправляються назад користувачу
@@ -18,7 +20,7 @@ def main(request, *args):
     }
     return render(request, 'main.html', data_dict)
 
-def posts(request, *args):
+"""def posts(request, *args):
     page = request.GET.get('page')
     posts = Post.objects.all()
     category = Category.objects.all()
@@ -35,16 +37,40 @@ def posts(request, *args):
         'category': category,
     }
     return render(request, 'posts.html', data_dict)#запит, адреса, словник із даними
+    """
 
+class PostListMain(ListView):
+    model = Post              
+    context_object_name = 'posts'
+    template_name = 'posts.html'
+    paginate_by = 4
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sidebar'] = Category.objects.all()
+        context['slide_posts'] = Post.objects.all()
+        return context
+    
+"""
 def search_post(request):
-    """Functionality for navbar to process search form"""
     posts = None
     if request.method == "POST":
         text = request.POST.get("searchpost")#отримуємо ім'я інпута із html-файла
-        posts = Post.objects.filter(title__icontains=text) #шукаємо по полю title і lookup-пу icontains
+        posts = Post.objects.filter(Q(title__icontains=text.lower()) | Q(title__icontains=text.capitalize()) | Q(title__icontains=text.upper()))#шукаємо по полю title і lookup-пу icontains
     data_dict = { "posts": posts }
     return render(request, 'posts.html', data_dict)
+"""
 
+class PostSearchView(ListView):
+    model = Post              
+    context_object_name = 'query'
+    template_name = 'navbar.html'
+
+    def get_queryset(self):
+        text = self.request.GET.get('searchposts')
+        if text:
+            object_list = self.model.objects.filter(Q(title__icontains=text.lower()) | Q(title__icontains=text.capitalize()) | Q(title__icontains=text.upper()))
+        return object_list
+    
 def get_comment_form(request, post):
     """Post user commentary Form processing"""
     if request.method =="POST":
