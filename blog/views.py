@@ -8,6 +8,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.views.generic.list import ListView
+from django.views.generic import DetailView, CreateView
 
 # Create your views here.
 #дані збираються з бази даних, відправляються на html-сторінку, потім рендеряться(готуються) і відправляються назад користувачу
@@ -60,6 +61,22 @@ def search_post(request):
     return render(request, 'posts.html', data_dict)
 """
 
+class ShowPost(DetailView):
+    model = Post
+    template_name = "post_view.html"
+    slug_url_kwarg = "slug"
+    context_object_name = 'post'
+    def get_object(self):
+        slug = self.kwargs['slug']
+        obj_post = Post.objects.get(post_slug = slug)
+        return obj_post
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sidebar'] = Category.objects.all()
+        #form = get_comment_form(self.request, context['post'])
+        return context
+
+
 class PostSearchView(ListView):
     model = Post              
     context_object_name = 'query'
@@ -70,6 +87,7 @@ class PostSearchView(ListView):
         if text:
             object_list = self.model.objects.filter(Q(title__icontains=text.lower()) | Q(title__icontains=text.capitalize()) | Q(title__icontains=text.upper()))
         return object_list
+
     
 def get_comment_form(request, post):
     """Post user commentary Form processing"""
@@ -84,7 +102,7 @@ def get_comment_form(request, post):
         form = AddCommentForm()
     return form
 
-def slug_process(request, slug):
+'''def slug_process(request, slug):
     """Search URL in category slugs first and if no mathing
     Than searsh URL in post slugs
     In both cases show sidebar with categories"""
@@ -97,6 +115,7 @@ def slug_process(request, slug):
             "category": category
         })
 
+
     post_slugs = [p.post_slug for p in Post.objects.all() ]
     if slug in post_slugs:
         post = Post.objects.get(post_slug = slug)
@@ -108,4 +127,5 @@ def slug_process(request, slug):
                       'category': category,
                     }
         return render(request, 'post_view.html', data_dict)
+'''
 

@@ -4,10 +4,10 @@
             <div class = "container">
                 <div class="carousel carousel-slider center">
                     {% for post in slide_posts %}
-                    <div class="carousel-item white white-text" href="/{{ post.post_slug }}">
+                    <div class="carousel-item white white-text" href="/post/{{ post.post_slug }}">
                         <div class="card">
                             <span class="card-title">
-                                <b><h5><a href="/{{ post.post_slug }}">{{ post.title }}</a></h5></b>
+                                <b><h5><a href="/post/{{ post.post_slug }}">{{ post.title }}</a></h5></b>
                             </span>
                             <div class="card-image">
                                 <img class = "center-align responsive-img"
@@ -63,13 +63,13 @@
 
                             <div class="card-content">
                                 <span class="card-title">
-                                    <b><h5><a href="/{{ post.post_slug }}">{{ post.title }}</a></h5></b>
+                                    <b><h5><a href="/post/{{ post.post_slug }}">{{ post.title }}</a></h5></b>
                                 </span>
                             </div>
 
                             <div class="card-reveal">
-                                <span class="card-title"><a href="/{{ post.post_slug }}">{{ post.title }}</a><i class="material-icons right">close</i></span>
-                                <p><div class="card-content">{{ post.text|truncatechars:150 }}...</div></p>
+                                <span class="card-title"><a href="/post/{{ post.post_slug }}">{{ post.title }}</a><i class="material-icons right">close</i></span>
+                                <p><div class="card-content">{{ post.text|truncatechars:300|safe }}...</div></p>
                             </div>
                             <br>
                         </div>

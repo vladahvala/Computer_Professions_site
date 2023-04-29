@@ -6,16 +6,14 @@
                     <div class = "col s10 l10">
                         <div class="card">
                             <div class="card-content">
-                                <span class="card-title">
-                                    <a href="/">{{ post.title }}</a>
-                                </span>
-                                <span text-align="center"
-                                display="block">
-                                    <img class = "center-align responsive-img"
-                                    src="/{{ post.img }}">
-                                </span>  
-                                <h6>Дата створення поста: <i>{{ post.created_at }}</i></h6>
-                                <div class="card-content">{{ post.text }}</div>
+                                <div class="center-align">
+                                    <span class="card-title">
+                                        <h2><a href="/posts">{{ post.title }}</a></h2>
+                                    </span>
+                                </div>
+                                <div class="card-content">{{ post.text|safe }}</div>
+                                <br>
+                                <text>Дата створення поста: <i>{{ post.created_at }}</i></text>
                                 <br><br><br>
                             </div>
                         </div>
@@ -50,6 +48,13 @@
                 </div>
             </div>
         {% endif %}
+
+        <script>
+            tinyMCE.init({
+                force_p_newlines: false
+            });
+        </script> 
+
         <br><br><br>
         <div class="section red">
           <div class="container">

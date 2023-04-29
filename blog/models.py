@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 #Post - публікація. кожен ряд в таблиці - відомості про 1 публікацію
     #кожна його властивість - колонка у таблиці, котра теж назвивається Post 
-    
+
 class Category(models.Model):
     name = models.CharField(max_length=80)
     info = models.TextField(blank=True)
