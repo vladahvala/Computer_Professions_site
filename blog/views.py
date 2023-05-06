@@ -47,9 +47,18 @@ class PostListMain(ListView):
     paginate_by = 4
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['sidebar'] = Category.objects.all()
+        context['category'] = Category.objects.all()
         context['slide_posts'] = Post.objects.all()
         return context
+    def get_queryset(self):       
+        search_query = self.request.GET.get("searchpost")
+        if search_query:
+            return Post.objects.filter(
+                                    Q(title__icontains=search_query.lower()) | 
+                                    Q(title__icontains=search_query.upper()) | 
+                                    Q(title__icontains=search_query.capitalize())
+                                )
+        return Post.objects.all()  
     
 """
 def search_post(request):
@@ -72,22 +81,24 @@ class ShowPost(DetailView):
         return obj_post
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['sidebar'] = Category.objects.all()
+        context['comments'] = Comment.objects.filter(post=context['post']) 
         #form = get_comment_form(self.request, context['post'])
         return context
 
-
-class PostSearchView(ListView):
-    model = Post              
-    context_object_name = 'query'
-    template_name = 'navbar.html'
-
-    def get_queryset(self):
-        text = self.request.GET.get('searchposts')
-        if text:
-            object_list = self.model.objects.filter(Q(title__icontains=text.lower()) | Q(title__icontains=text.capitalize()) | Q(title__icontains=text.upper()))
-        return object_list
-
+class ShowCategory(DetailView):
+    model = Post
+    template_name = "category.html"
+    slug_url_kwarg = "slug"
+    context_object_name = 'post'
+    def get_object(self):
+        slug = self.kwargs['slug']
+        category = Category.objects.all(category_slug = slug)
+        return category
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.all()
+        #form = get_comment_form(self.request, context['post'])
+        return context
     
 def get_comment_form(request, post):
     """Post user commentary Form processing"""
