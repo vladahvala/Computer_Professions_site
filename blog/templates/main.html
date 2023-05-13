@@ -1,11 +1,13 @@
 
 <html lang="en">
+    {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parallax</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     
     <style>
@@ -20,37 +22,36 @@
 </head>
 
 <body>
-    <ul class="sidenav" id="slide-out">
+    <ul class="sidenav" id="slide-out" style="background-color:#f3e780">
         <div class="row center-align">
-          <u class="blue-text"><b><h3 class="blue-text">меню</h3></b></u>
+          <u class="black-text"><b><h3 class="black-text">меню</h3></b></u>
         </div>
         <div class="row">
             <div class="col s1">
-                <button class="waves-effect waves-light btn #ef5350 red lighten-1" form="search_nav" type="submit"><i class="material-icons">search</i></button>
+                <button class="waves-effect waves-light btn #8bc34a light-green" form="search_nav" type="submit"><i class="material-icons">search</i></button>
             </div>   
             <div class="col s8 offset-s2">             
-                <form method=POST action="{% url 'search' %}" id="search_nav">
+                <form method=GET action="{% url 'search' %}" id="search_nav">
                   {% csrf_token %}
                   <input type="search" name="searchpost" placeholder="Шукати статтю">
                 </form> 
             </div> 
         </div>
-        <li><a class="active" href="/"><i class="material-icons red-text">home</i>Головна</a></li>
-        <li><a href="/posts"><i class="material-icons red-text">laptop_mac</i>Спеціальності</a></li>
-        <li><a href="/admin"><i class="material-icons red-text">https</i>Адміністратор</a></li>
+        <li><a class="active" href="/"><i class="material-icons #e65100 orange-text">home</i>Головна</a></li>
+        <li><a href="/posts"><i class="material-icons #e65100 orange-text">laptop_mac</i>Спеціальності</a></li>
+        <li><a href="/admin"><i class="material-icons #e65100 orange-text">https</i>Адміністратор</a></li>
       </ul>
 
       <div class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper #ef5350 red lighten-1">
-              <div class="row">
-                <a href="/" data-target="slide-out" class="sidenav-trigger show-on-med-and-down"><i class="material-icons">menu</i></a>
-                  <ul class="hide-on-med-and-down left">
-                    <li><a class="waves-effect waves-light" href="/">Головна</a></li>
-                    <li><a class="waves-effect waves-light" href="/posts">Спеціальності</a></li>
-                    <li><a class="waves-effect waves-light" href="/admin">Адміністратор</a></li>
+            <div class="nav-wrapper #dce775 lime lighten-2">
+                <div class="row">
+                  <a href="/" data-target="slide-out" class="sidenav-trigger show-on-med-and-down"><i class="material-icons">menu</i></a>
+                    <ul class="hide-on-med-and-down left">
+                      <li><a class="waves-effect waves-light black-text" href="/">Головна</a></li>
+                      <li><a class="waves-effect waves-light black-text" href="/posts">Спеціальності</a></li>
+                      <li><a class="waves-effect waves-light black-text" href="/admin">Адміністратор</a></li>
                   </ul>                
-                  <a href="/" class="brand-logo white-text text-darken-2 hide-on-med-and-down center">Logo</a>
                 </div>
               </div>
               <br>
@@ -68,7 +69,7 @@
         </div>
     </div>
 
-    <div class="section white" >
+    <div class="section white" style=" background: linear-gradient(-45deg, #e65100, #ffcc80 , #f3e780, #e0e0e0 )">
         <div class="container">
             <h1 class="black-text center"><b>Комп'ютерні спеціальності</b></h1>
             <p class="center"><i>Останнім часом професії у сфері IT набирають свою популярність...</i></p>
@@ -78,7 +79,7 @@
             <p>- по-третє, робота з комп’ютерами не зобов’язує наявність офісу або певного місця праці, тому цілком своєю справою можна займатися вдома або в кафе.</p>
             <p>Крім цього, потрібно враховувати, що розвиток технологій зобов’язує всіх людей, так чи інакше, розбиратися в «залізі». Складно уявити, наскільки полегшило роботу деяких спеціальностях впровадження програм і комп’ютерів.
             <p>Перспективи IT-професій зараз дуже цікавлять молодь. Тому в статті будуть розглянуті найпопулярніші, вигідні і прибуткові професії, пов’язані з комп’ютером.</p>
-        <br><br>
+            <br><br>
         </div>
     </div>       
     
@@ -88,13 +89,11 @@
         </div>
     </div>
 
-    <div class="section white">
+    <div class="section white" style=" background: linear-gradient(-45deg, #e65100, #ffcc80 , #f3e780, #e0e0e0 )">
         <div class="container">
-            <blockquote class="#ffebee red lighten-5">
-                <h1 class="red-text text-lighten-1">Зміст статті</h1>
-            </blockquote>
+            <h1 class="black-text center">Зміст статті</h1>
             <br>
-            <pre>• Адміністратор баз даних          • Програміст 1С
+            <pre class="center-align">• Адміністратор баз даних          • Програміст 1С
 
 • Веб-дизайнер                     • Аналітик
 
@@ -117,19 +116,26 @@
         </div>
     </div>      
 
-    <div class="section red">
+    <footer class="page-footer" style="background: linear-gradient(-45deg, #e65100, #ffb74d);">
         <div class="container">
-    <pre><h5>Ви долистали до кінця!</h5>                           
-    Джерело інформації: www.education.ua                                  Конфіденційність: уся інформація захищена
-
-    Дані розробника:
-    <i>Instagram</i> - korovay_z_sillyu
-    <i>Email</i> - vladahvala8@gmail.com
-
-© Programming.ua
-            </pre>
+            <div class="row">
+                <div class="container">
+<pre class="black-text"><h5>Ви долистали до кінця!</h5>                           
+Джерело інформації: www.education.ua                            Конфіденційність: уся інформація захищена
+                
+Дані розробника:
+<i>Instagram</i> - korovay_z_sillyu
+<i>Email</i> - vladahvala8@gmail.com
+</pre>
+                </div>
+            </div>
         </div>
-    </div>       
+        <div class="footer-copyright">
+          <div class="container black-text">
+             © Programming.ua
+          </div>
+        </div>
+      </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

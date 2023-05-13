@@ -18,54 +18,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 
-                    
-                </div>
-                <div class="row">
-                <div class = "container">
-                    <div class="row">
-                        <form method="POST">
-                            {% csrf_token %} 
-                            {{ comment_form.as_p }}
-                            <button class="btn #ff1744 red accent-3" type="submit">Опублікувати<i class="material-icons right">send</i></button>
-                        </form>
-                    </div>
-                <br><br>
-                {% for comment in comments %}
-                <div class="row valign-wrapper">
-                    <div class="col s12 l12">
-                        <blockquote>
-                            <div class= "card-content">
-                                    <div class="col s12">
-                                        <text><p>{{ comment }}</p></text>
-                                    </div>
-                                <span class="white-text">Дата написання коментаря: <i>{{ comment.created_at }}</i></span>
-                            </div>
-                        </blockquote>
-                    </div>
-                </div>
-                {% endfor %}
-                </div>
-            </div>
         {% endif %}
-
-        <script>
-            tinyMCE.init({
-                force_p_newlines: false
-            });
-        </script> 
-
-        <br><br><br>
-        <div class="section red">
-          <div class="container">
-    <pre><h5>Ви долистали до кінця!</h5>                           
-    Джерело інформації: www.education.ua                                  Конфіденційність: уся інформація захищена
-      
-    Дані розробника:
-    <i>Instagram</i> - korovay_z_sillyu
-    <i>Email</i> - vladahvala8@gmail.com
-  
-© Programming.ua
-              </pre>
-            </div>        
+        <br><br><br>    
+        
+        
     {% endblock %}

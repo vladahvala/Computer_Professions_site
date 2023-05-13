@@ -1,17 +1,14 @@
 from django.shortcuts import render, redirect
-from .models import Post, Comment, Category
+from .models import Post, Category
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import AddCommentForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.views.generic.list import ListView
 from django.views.generic import DetailView, CreateView
 
-# Create your views here.
-#дані збираються з бази даних, відправляються на html-сторінку, потім рендеряться(готуються) і відправляються назад користувачу
 
 def main(request, *args):
     page = request.GET.get('page')
@@ -21,25 +18,6 @@ def main(request, *args):
     }
     return render(request, 'main.html', data_dict)
 
-"""def posts(request, *args):
-    page = request.GET.get('page')
-    posts = Post.objects.all()
-    category = Category.objects.all()
-    paginator = Paginator(posts, 4) #кількість постів, що відображаються на сторінці
-    try:
-        data_page = paginator.page(page)
-    except PageNotAnInteger:
-        data_page = paginator.page(1)
-    except EmptyPage:
-        data_page = paginator.page(paginator.num_pages)
-    data_dict = {
-        "slide_posts": posts,
-        "posts": data_page,
-        'category': category,
-    }
-    return render(request, 'posts.html', data_dict)#запит, адреса, словник із даними
-    """
-
 class PostListMain(ListView):
     model = Post              
     context_object_name = 'posts'
@@ -47,8 +25,8 @@ class PostListMain(ListView):
     paginate_by = 4
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = Category.objects.all()
         context['slide_posts'] = Post.objects.all()
+        context['category'] = Category.objects.all()
         return context
     def get_queryset(self):       
         search_query = self.request.GET.get("searchpost")
@@ -59,16 +37,19 @@ class PostListMain(ListView):
                                     Q(title__icontains=search_query.capitalize())
                                 )
         return Post.objects.all()  
-    
-"""
-def search_post(request):
-    posts = None
-    if request.method == "POST":
-        text = request.POST.get("searchpost")#отримуємо ім'я інпута із html-файла
-        posts = Post.objects.filter(Q(title__icontains=text.lower()) | Q(title__icontains=text.capitalize()) | Q(title__icontains=text.upper()))#шукаємо по полю title і lookup-пу icontains
-    data_dict = { "posts": posts }
-    return render(request, 'posts.html', data_dict)
-"""
+
+'''
+class  CategoryListMain(ListView):
+    model = Category
+    template_name = "category.html"
+    context_object_name = 'post'
+    paginate_by = 4
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs['category_slug']
+        context['category'] = Category.objects.filter(category_slug=slug)
+        return context
+'''
 
 class ShowPost(DetailView):
     model = Post
@@ -81,62 +62,6 @@ class ShowPost(DetailView):
         return obj_post
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comments'] = Comment.objects.filter(post=context['post']) 
-        #form = get_comment_form(self.request, context['post'])
-        return context
-
-class ShowCategory(DetailView):
-    model = Post
-    template_name = "category.html"
-    slug_url_kwarg = "slug"
-    context_object_name = 'post'
-    def get_object(self):
-        slug = self.kwargs['slug']
-        category = Category.objects.all(category_slug = slug)
-        return category
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['category'] = Category.objects.all()
-        #form = get_comment_form(self.request, context['post'])
         return context
     
-def get_comment_form(request, post):
-    """Post user commentary Form processing"""
-    if request.method =="POST":
-        form = AddCommentForm(request.POST)
-        if form.is_valid():
-            content = request.POST.get('content')
-            comment = Comment.objects.create(post=post, content=content)
-            comment.save()#зберігаємо об'єкт в базі данних
-        return redirect(f'/{post.post_slug}')
-    else:
-        form = AddCommentForm()
-    return form
-
-'''def slug_process(request, slug):
-    """Search URL in category slugs first and if no mathing
-    Than searsh URL in post slugs
-    In both cases show sidebar with categories"""
-    category = Category.objects.all()
-    categories = [ c.category_slug for c in category]
-    if slug in categories:
-        category_posts = Post.objects.filter(category__category_slug=slug)
-        return render(request, "category.html", {
-            "posts" : category_posts, 
-            "category": category
-        })
-
-
-    post_slugs = [p.post_slug for p in Post.objects.all() ]
-    if slug in post_slugs:
-        post = Post.objects.get(post_slug = slug)
-        comments = Comment.objects.filter(post=post) #змінна=елементові класу post
-        form = get_comment_form(request, post)
-        data_dict = { 'post': post, 
-                      'comment_form': form,
-                      'comments': comments,
-                      'category': category,
-                    }
-        return render(request, 'post_view.html', data_dict)
-'''
 

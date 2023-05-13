@@ -1,5 +1,6 @@
 {% extends 'navbar.html' %}
 
+
         {% block carousel %}
         <div class="col s10 l10 offset-s1 offset-l1 hide-on-med-and-down">
             <div class = "container">
@@ -61,7 +62,10 @@
                             <div class="card-image">    
                                 <img class = "center-align responsive-img">
                                     <img src="/{{ post.img }}">
-                                <a class="btn btn-floating btn-large halfway-fab pulse activator #ef5350 red lighten-1"><i class="material-icons right">add</i></a>
+                                <a class="btn btn-floating btn-large halfway-fab pulse activator #e65100 orange"
+                                style="background: linear-gradient(-45deg,  #e65100, #ffcc80 , #f3e780);">
+                                <i class="material-icons right">add</i>
+                                </a>
                             </div>
 
                             <div class="card-content">
@@ -87,14 +91,14 @@
                 </div>
                 <ul class="pagination">
                     {% if page_obj.has_previous %}
-                        <li class="waves-effect"><a href="?page={{ page_obj.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                        <li class="waves-effect "><a href="?page={{ page_obj.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
                     {% else %}
                         <li class="disabled"><a href=""><i class="material-icons">chevron_left</i></a></li>
                     {% endif %}
 
                     {% for num in page_obj.paginator.page_range %}
                         {% if page_obj.number == num %}
-                            <li class="active"><a href="">{{num}}</a></li>
+                            <li class="active #e65100 orange"><a href="">{{num}}</a></li>
                         {% else %}
                             <li class="waves-effect"><a href="?page={{ num }}">{{num}}</a></li>
                         {% endif %}
@@ -111,16 +115,8 @@
         {% endif %}
     </div>
     <br><br><br>
-    <div class="section red">
-      <div class="container">
-    <pre><h5>Ви долистали до кінця!</h5>                           
-    Джерело інформації: www.education.ua                                  Конфіденційність: уся інформація захищена
-  
-    Дані розробника:
-    <i>Instagram</i> - korovay_z_sillyu
-    <i>Email</i> - vladahvala8@gmail.com
-
-© Programming.ua
-          </pre>
-        </div>
+    
+    
     {% endblock %}
+
+    

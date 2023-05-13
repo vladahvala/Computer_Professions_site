@@ -4,28 +4,31 @@
     <head>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </head>
+
+    
     <body>
 
-        <ul class="sidenav" id="slide-out">
+        <ul class="sidenav" id="slide-out" style="background-color:#f3e780">
           <div class="row center-align">
             <u class="black-text"><b><h3 class="black-text">меню</h3></b></u>
           </div>
           <div class="row">
               <div class="col s1">
-                  <button class="waves-effect waves-light btn #ef5350 red lighten-1" form="search_nav" type="submit"><i class="material-icons">search</i></button>
+                  <button class="waves-effect waves-light btn #8bc34a light-green" form="search_nav" type="submit"><i class="material-icons">search</i></button>
               </div>   
               <div class="col s8 offset-s2">             
                   <form method=GET action="{% url 'search' %}" id="search_nav">
                     {% csrf_token %}
-                    <input type="search" name="searchpost" placeholder="Шукати статтю">
+                    <input type="search" name="searchpost" placeholder="Шукати статтю" style="text-color:black">
                   </form> 
               </div> 
           </div>
-          <li><a class="active" href="/"><i class="material-icons red-text">home</i>Головна</a></li>
-          <li><a href="/posts"><i class="material-icons red-text">laptop_mac</i>Спеціальності</a></li>
-          <li><a href="/admin"><i class="material-icons red-text">https</i>Адміністратор</a></li>
+          <li><a class="active" href="/"><i class="material-icons #e65100 orange-text">home</i>Головна</a></li>
+          <li><a href="/posts"><i class="material-icons #e65100 orange-text">laptop_mac</i>Спеціальності</a></li>
+          <li><a href="/admin"><i class="material-icons #e65100 orange-text">https</i>Адміністратор</a></li>
         </ul>
 
         <ul id='dropMenu' class='dropdown-content'>
@@ -36,14 +39,14 @@
         
         <div class="navbar-fixed">
           <nav>
-              <div class="nav-wrapper #ef5350 red lighten-1">
+              <div class="nav-wrapper #dce775 lime lighten-2">
                 <div class="row">
                   <a href="/" data-target="slide-out" class="sidenav-trigger show-on-med-and-down"><i class="material-icons">menu</i></a>
                     <ul class="hide-on-med-and-down left">
-                      <li><a class="waves-effect waves-light" href="/">Головна</a></li>
-                      <li><a class="waves-effect waves-light" href="/posts">Спеціальності</a></li>
-                      <li><a class="waves-effect waves-light" href="/admin">Адміністратор</a></li>
-                      <li><button class="btn-large waves-effect waves-light #ef5350 red lighten-1" form="search_nav_main" type="submit"><i class="large material-icons center">search</i></buton></li>
+                      <li><a class="waves-effect waves-light black-text" href="/">Головна</a></li>
+                      <li><a class="waves-effect waves-light black-text" href="/posts">Спеціальності</a></li>
+                      <li><a class="waves-effect waves-light black-text" href="/admin">Адміністратор</a></li>
+                      <li><button class="btn-large waves-effect waves-light #8bc34a light-green" form="search_nav_main" type="submit"><i class="large material-icons center ">search</i></buton></li>
                     </ul> 
                       <div class="col s2 hide-on-med-and-down">             
                         <form method=GET action="{% url 'search' %}" id="search_nav_main">
@@ -51,9 +54,8 @@
                           <input type="search" name="searchpost" placeholder="Шукати статтю">
                         </form> 
                       </div> 
-                    <a href="/" class="brand-logo white-text text-darken-2 hide-on-med-and-down center">Logo</a>
                   <div class="col offset-s4">
-                      <a href="/posts" class="dropdown-trigger btn hide-on-med-and-down #ff1744 red accent-3" data-target='dropMenu'>категорії спеціальностей</a>
+                      <a href="/posts" class="dropdown-trigger btn hide-on-med-and-down #8bc34a light-green" data-target='dropMenu'>категорії спеціальностей</a>
                     </div>
                   </div>
                 </div>
@@ -104,4 +106,26 @@
         </script>
       {% endif %}
     </body>
+
+    <footer class="page-footer #c0ca33 lime darken-1">
+      <div class="container">
+          <div class="row">
+              <div class="container">
+<pre class="black-text"><h5>Ви долистали до кінця!</h5>                           
+Джерело інформації: www.education.ua                            Конфіденційність: уся інформація захищена
+              
+Дані розробника:
+<i>Instagram</i> - korovay_z_sillyu
+<i>Email</i> - vladahvala8@gmail.com
+</pre>
+              </div>
+          </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container black-text">
+           © Programming.ua
+        </div>
+      </div>
+    </footer>
+    
 </html>
