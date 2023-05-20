@@ -1,14 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Post, Category
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.views.generic.list import ListView
 from django.views.generic import DetailView, CreateView
-
 
 def main(request, *args):
     page = request.GET.get('page')
@@ -38,18 +34,23 @@ class PostListMain(ListView):
                                 )
         return Post.objects.all()  
 
-'''
-class  CategoryListMain(ListView):
-    model = Category
+
+class CategoryListMain(ListView):
+    model = Post
     template_name = "category.html"
-    context_object_name = 'post'
+    context_object_name = 'posts'
     paginate_by = 4
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        slug = self.kwargs['category_slug']
-        context['category'] = Category.objects.filter(category_slug=slug)
+        context['category'] = Category.objects.all()
         return context
-'''
+    def get_queryset(self):
+        slug = self.kwargs['category_slug']
+        if slug:
+            objects = Post.objects.filter(category__category_slug = slug)
+            print(objects)
+            return objects
+
 
 class ShowPost(DetailView):
     model = Post
@@ -62,6 +63,7 @@ class ShowPost(DetailView):
         return obj_post
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.all()
         return context
     
 

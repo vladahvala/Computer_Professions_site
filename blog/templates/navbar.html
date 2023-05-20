@@ -33,7 +33,7 @@
 
         <ul id='dropMenu' class='dropdown-content'>
           {% for cat in category %}
-            <li><a href="/post/{{cat.category_slug}}" style="color:black">{{cat.name}}</a></li>
+            <li><a href="/{{cat.category_slug}}" style="color:black">{{cat.name}}</a></li>
           {% endfor %}
         </ul>
         
@@ -107,25 +107,4 @@
       {% endif %}
     </body>
 
-    <footer class="page-footer #c0ca33 lime darken-1">
-      <div class="container">
-          <div class="row">
-              <div class="container">
-<pre class="black-text"><h5>Ви долистали до кінця!</h5>                           
-Джерело інформації: www.education.ua                            Конфіденційність: уся інформація захищена
-              
-Дані розробника:
-<i>Instagram</i> - korovay_z_sillyu
-<i>Email</i> - vladahvala8@gmail.com
-</pre>
-              </div>
-          </div>
-      </div>
-      <div class="footer-copyright">
-        <div class="container black-text">
-           © Programming.ua
-        </div>
-      </div>
-    </footer>
-    
 </html>
