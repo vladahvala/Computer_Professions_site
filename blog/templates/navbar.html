@@ -22,13 +22,13 @@
               <div class="col s8 offset-s2">             
                   <form method=GET action="{% url 'search' %}" id="search_nav">
                     {% csrf_token %}
-                    <input type="search" name="searchpost" placeholder="Шукати статтю" style="text-color:black">
+                    <input type="search" name="searchpost" placeholder="Шукати статтю" autocomplete="off" style="text-color:black">
                   </form> 
               </div> 
           </div>
           <li><a class="active" href="/"><i class="material-icons #e65100 orange-text">home</i>Головна</a></li>
           <li><a href="/posts"><i class="material-icons #e65100 orange-text">laptop_mac</i>Спеціальності</a></li>
-          <li><a href="/admin"><i class="material-icons #e65100 orange-text">https</i>Адміністратор</a></li>
+          <!--<li><a href="/admin"><i class="material-icons #e65100 orange-text">https</i>Адміністратор</a></li>-->
         </ul>
 
         <ul id='dropMenu' class='dropdown-content'>
@@ -45,13 +45,13 @@
                     <ul class="hide-on-med-and-down left">
                       <li><a class="waves-effect waves-light black-text" href="/">Головна</a></li>
                       <li><a class="waves-effect waves-light black-text" href="/posts">Спеціальності</a></li>
-                      <li><a class="waves-effect waves-light black-text" href="/admin">Адміністратор</a></li>
+                      <!--<li><a class="waves-effect waves-light black-text" href="/admin">Адміністратор</a></li>-->
                       <li><button class="btn-large waves-effect waves-light #8bc34a light-green" form="search_nav_main" type="submit"><i class="large material-icons center ">search</i></buton></li>
                     </ul> 
                       <div class="col s2 hide-on-med-and-down">             
                         <form method=GET action="{% url 'search' %}" id="search_nav_main">
                           {% csrf_token %}
-                          <input type="search" name="searchpost" placeholder="Шукати статтю">
+                          <input type="search" name="searchpost" placeholder="Шукати статтю" autocomplete="off">
                         </form> 
                       </div> 
                   <div class="col offset-s4">

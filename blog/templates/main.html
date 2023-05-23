@@ -33,13 +33,13 @@
             <div class="col s8 offset-s2">             
                 <form method=GET action="{% url 'search' %}" id="search_nav">
                   {% csrf_token %}
-                  <input type="search" name="searchpost" placeholder="Шукати статтю">
+                  <input type="search" name="searchpost" placeholder="Шукати статтю" autocomplete="off">
                 </form> 
             </div> 
         </div>
         <li><a class="active" href="/"><i class="material-icons #e65100 orange-text">home</i>Головна</a></li>
         <li><a href="/posts"><i class="material-icons #e65100 orange-text">laptop_mac</i>Спеціальності</a></li>
-        <li><a href="/admin"><i class="material-icons #e65100 orange-text">https</i>Адміністратор</a></li>
+        <!--<li><a href="/admin"><i class="material-icons #e65100 orange-text">https</i>Адміністратор</a></li>-->
       </ul>
 
       <div class="navbar-fixed">
@@ -50,7 +50,7 @@
                     <ul class="hide-on-med-and-down left">
                       <li><a class="waves-effect waves-light black-text" href="/">Головна</a></li>
                       <li><a class="waves-effect waves-light black-text" href="/posts">Спеціальності</a></li>
-                      <li><a class="waves-effect waves-light black-text" href="/admin">Адміністратор</a></li>
+                      <!--<li><a class="waves-effect waves-light black-text" href="/admin">Адміністратор</a></li>-->
                   </ul>                
                 </div>
               </div>
@@ -71,15 +71,15 @@
 
     <div class="section white" style=" background: linear-gradient(-45deg, #e65100, #ffcc80 , #f3e780, #e0e0e0 )">
         <div class="container">
-            <h1 class="black-text center" style="font-family:'Italian Typewriter Unicode'"><b>Комп'ютерні спеціальності</b></h1>
+            <h1 class="black-text center" style="font-family:'Quodlibet Sans Light'"><b>Комп'ютерні спеціальності</b></h1>
             <h6>
-            <p class="center" style="font-family:'Italian Typewriter Unicode'"><i>Останнім часом професії у сфері IT набирають свою популярність...</i></p>
-            <p style="font-family:'Italian Typewriter Unicode'">- по-перше, це дуже цікава діяльність, яка дозволяє створювати чудові продукти і проєкти власними руками;</p>
-            <p style="font-family:'Italian Typewriter Unicode'">- по-друге, програмування і комп’ютерні спеціальності високо цінуються в сучасному суспільстві, тому справжні професіонали 
+            <p class="center" style="font-family:'Quodlibet Sans Light'"><i>Останнім часом професії у сфері IT набирають свою популярність...</i></p>
+            <p style="font-family:'Quodlibet Sans Light'">- по-перше, це дуже цікава діяльність, яка дозволяє створювати чудові продукти і проєкти власними руками;</p>
+            <p style="font-family:'Quodlibet Sans Light'">- по-друге, програмування і комп’ютерні спеціальності високо цінуються в сучасному суспільстві, тому справжні професіонали 
                 своєї справи можуть розраховувати на пристойну заробітну плату;</p>
-            <p style="font-family:'Italian Typewriter Unicode'">- по-третє, робота з комп’ютерами не зобов’язує наявність офісу або певного місця праці, тому цілком своєю справою можна займатися вдома або в кафе.</p>
-            <p style="font-family:'Italian Typewriter Unicode'">Крім цього, потрібно враховувати, що розвиток технологій зобов’язує всіх людей, так чи інакше, розбиратися в «залізі». Складно уявити, наскільки полегшило роботу деяких спеціальностях впровадження програм і комп’ютерів.
-            <p style="font-family:'Italian Typewriter Unicode'">Перспективи IT-професій зараз дуже цікавлять молодь. Тому в статті будуть розглянуті найпопулярніші, вигідні і прибуткові професії, пов’язані з комп’ютером.</p>
+            <p style="font-family:'Quodlibet Sans Light'">- по-третє, робота з комп’ютерами не зобов’язує наявність офісу або певного місця праці, тому цілком своєю справою можна займатися вдома або в кафе.</p>
+            <p style="font-family:'Quodlibet Sans Light'">Крім цього, потрібно враховувати, що розвиток технологій зобов’язує всіх людей, так чи інакше, розбиратися в «залізі». Складно уявити, наскільки полегшило роботу деяких спеціальностях впровадження програм і комп’ютерів.
+            <p style="font-family:'Quodlibet Sans Light'">Перспективи IT-професій зараз дуже цікавлять молодь. Тому в статті будуть розглянуті найпопулярніші, вигідні і прибуткові професії, пов’язані з комп’ютером.</p>
             </h6>
             <br><br>
         </div>
@@ -93,9 +93,9 @@
 
     <div class="section white" style=" background: linear-gradient(-45deg, #e65100, #ffcc80 , #f3e780, #e0e0e0 )">
         <div class="container">
-            <h1 class="black-text center" style="font-family:'Italian Typewriter Unicode'">Зміст статті</h1>
+            <h1 class="black-text center" style="font-family:'Quodlibet Sans Light'">Зміст статті</h1>
             <br>
-            <h6><pre class="center-align" style="font-family:'Italian Typewriter Unicode'">• Адміністратор баз даних                      • Програміст 1С
+            <h6><pre class="center-align" style="font-family:'Quodlibet Sans Light'">• Адміністратор баз даних                      • Програміст 1С
 
 • Веб-дизайнер                              • Аналітик
 
@@ -118,26 +118,22 @@
         </div>
     </div>      
 
-    <footer class="page-footer" style="background: linear-gradient(-45deg, #e65100, #ffb74d);">
+      <footer class="page-footer" style="background: linear-gradient(-45deg, #e65100, #ffb74d);">
         <div class="container">
-            <div class="row">
-                <div class="container">
-<pre class="black-text"><h5>Ви долистали до кінця!</h5>                           
-Джерело інформації: www.education.ua                            Конфіденційність: уся інформація захищена
-                
-Дані розробника:
-<i>Instagram</i> - korovay_z_sillyu
-<i>Email</i> - vladahvala8@gmail.com
-</pre>
-                </div>
+            <div class="row center-align">
+                    <h5 class="black-text"><b>Ви долистали до кінця!</b></h5>                           
+                    <p class="black-text">Джерело інформації: www.education.ua</p>                                        
+                    <p class="black-text">Дані розробника:</p>
+                    <p class="black-text"><i>Instagram</i> - korovay_z_sillyu</p>
+                    <p class="black-text"><i>Email</i> - vladahvala8@gmail.com</p>
             </div>
         </div>
         <div class="footer-copyright">
-          <div class="container black-text">
-             © Programming.ua
-          </div>
+            <div class="container black-text">
+                © Programming.ua
+            </div>
         </div>
-      </footer>
+    </footer>   
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
