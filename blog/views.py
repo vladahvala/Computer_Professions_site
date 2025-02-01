@@ -15,24 +15,30 @@ def main(request, *args):
     return render(request, 'main.html', data_dict)
 
 class PostListMain(ListView):
-    model = Post              
+    model = Post
     context_object_name = 'posts'
     template_name = 'posts.html'
     paginate_by = 4
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['slide_posts'] = Post.objects.all()
+        context['slide_posts'] = Post.objects.all().order_by('id')  # Додаємо сортування для slide_posts
         context['category'] = Category.objects.all()
         return context
-    def get_queryset(self):       
+
+    def get_queryset(self):
         search_query = self.request.GET.get("searchpost")
+        queryset = Post.objects.all()
+
         if search_query:
-            return Post.objects.filter(
-                                    Q(title__icontains=search_query.lower()) | 
-                                    Q(title__icontains=search_query.upper()) | 
-                                    Q(title__icontains=search_query.capitalize())
-                                )
-        return Post.objects.all()  
+            queryset = queryset.filter(
+                Q(title__icontains=search_query.lower()) |
+                Q(title__icontains=search_query.upper()) |
+                Q(title__icontains=search_query.capitalize())
+            )
+
+        return queryset.order_by('id')  # Завжди сортуємо за 'id'
+
 
 
 class CategoryListMain(ListView):

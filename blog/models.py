@@ -29,7 +29,7 @@ class Post(models.Model):
     text = models.TextField()
     created_at = models.DateField(default=timezone.now) 
     post_slug = models.CharField(max_length=80, default="default_post") 
-    img = models.ImageField(default = 'blog/static/img/default.jpeg', 
+    img = models.ImageField(default = 'blog/static/img/default.jpg', 
                             upload_to='blog/static/img', 
                             height_field=None, width_field=None,
                             max_length=200,
@@ -46,4 +46,3 @@ class Post(models.Model):
         if img.height>650 or img.width>650:
             img.thumbnail((650, 650))
             img.save(self.img.path)
-
