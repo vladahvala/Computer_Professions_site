@@ -1,4 +1,3 @@
-
 <html lang="en">
     {% load static %}
 <head>
@@ -8,21 +7,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
-    <style>
-        .parallax-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 400px;
-        }
-    </style>
 </head>
 
 <body>
-    <ul class="sidenav" id="slide-out" style="background-color:#f3e780">
+    <ul class="sidenav" id="slide-out">
         <div class="row center-align">
           <u class="black-text"><b><h3 class="black-text">меню</h3></b></u>
         </div>
@@ -65,75 +55,78 @@
 
     <div class="parallax-container">
         <div class="parallax">
-            <img src="blog/static/img/parallax/comp.jpg" alt="works" class="responsive-img">
+            <img src="{% static 'img/parallax/comp.jpg' %}" alt="works" class="responsive-img">            
         </div>
     </div>
 
-    <div class="section white" style=" background: linear-gradient(-45deg, #e65100, #ffcc80 , #f3e780, #e0e0e0 )">
-        <div class="container">
-            <h1 class="black-text center" style="font-family:'Quodlibet Sans Light'"><b>Комп'ютерні спеціальності</b></h1>
-            <h6>
-            <p class="center" style="font-family:'Quodlibet Sans Light'"><i>Останнім часом професії у сфері IT набирають свою популярність...</i></p>
-            <p style="font-family:'Quodlibet Sans Light'">- по-перше, це дуже цікава діяльність, яка дозволяє створювати чудові продукти і проєкти власними руками;</p>
-            <p style="font-family:'Quodlibet Sans Light'">- по-друге, програмування і комп’ютерні спеціальності високо цінуються в сучасному суспільстві, тому справжні професіонали 
-                своєї справи можуть розраховувати на пристойну заробітну плату;</p>
-            <p style="font-family:'Quodlibet Sans Light'">- по-третє, робота з комп’ютерами не зобов’язує наявність офісу або певного місця праці, тому цілком своєю справою можна займатися вдома або в кафе.</p>
-            <p style="font-family:'Quodlibet Sans Light'">Крім цього, потрібно враховувати, що розвиток технологій зобов’язує всіх людей, так чи інакше, розбиратися в «залізі». Складно уявити, наскільки полегшило роботу деяких спеціальностях впровадження програм і комп’ютерів.
-            <p style="font-family:'Quodlibet Sans Light'">Перспективи IT-професій зараз дуже цікавлять молодь. Тому в статті будуть розглянуті найпопулярніші, вигідні і прибуткові професії, пов’язані з комп’ютером.</p>
-            </h6>
-            <br><br>
-        </div>
+    <div class="section_content">
+            <div class="intro_par">
+                <h1><b>Комп'ютерні спеціальності</b></h1>
+                <p><i>Останнім часом професії у сфері IT набирають свою популярність...</i></p>
+                <p>- по-перше, це дуже цікава діяльність, яка дозволяє створювати чудові продукти і проєкти власними руками;</p>
+                <p>- по-друге, програмування і комп’ютерні спеціальності високо цінуються в сучасному суспільстві, тому справжні професіонали 
+                    своєї справи можуть розраховувати на пристойну заробітну плату;</p>
+                <p>- по-третє, робота з комп’ютерами не зобов’язує наявність офісу або певного місця праці, тому цілком своєю справою можна займатися вдома або в кафе.</p>
+                <p>Крім цього, потрібно враховувати, що розвиток технологій зобов’язує всіх людей, так чи інакше, розбиратися в «залізі». Складно уявити, наскільки полегшило роботу деяких спеціальностях впровадження програм і комп’ютерів.</p>
+                <p>Перспективи IT-професій зараз дуже цікавлять молодь. Тому в статті будуть розглянуті найпопулярніші, вигідні і прибуткові професії, пов’язані з комп’ютером.</p>
+                <br><br>
+            </div>       
     </div>       
     
     <div class="parallax-container">
         <div class="parallax">
-            <img src="blog/static/img/parallax/code.jpg" alt="works" class="responsive-img">
+            <img src="{% static 'img/parallax/code.jpg' %}" alt="works" class="responsive-img">   
         </div>
     </div>
 
-    <div class="section white" style=" background: linear-gradient(-45deg, #e65100, #ffcc80 , #f3e780, #e0e0e0 )">
+    <div class="section_content">
         <div class="container">
-            <h1 class="black-text center" style="font-family:'Quodlibet Sans Light'">Зміст статті</h1>
-            <br>
-            <h6><pre class="center-align" style="font-family:'Quodlibet Sans Light'">• Адміністратор баз даних                      • Програміст 1С
-
-• Веб-дизайнер                              • Аналітик
-
-• Веб-програміст                            • Редактор сайтів
-
-• Бізнес-аналітик                           • Системний адміністратор
-
-• Верстальник                               • Системний аналітик
-
-• Консультант ERP-систем                    • Спеціаліст з безпеки інформації
-
-• Менеджер з продажу                        • Сценарист комп’ютерних ігор
-
-• Контент-менеджер                          • Тестувальник ПЗ
-
-• Менеджер інтерненет-проєктів              • ERP-програміст
-
-• Програміст                                • HTML-верстальник</pre></h6>
-            <br>    
+            <h1 class="content_title">Зміст статті</h1>
+            <div class="columns">
+                <ul class="column">
+                    <li>Адміністратор баз даних</li>
+                    <li>Веб-дизайнер</li>
+                    <li>Веб-програміст</li>
+                    <li>Бізнес-аналітик</li>
+                    <li>Верстальник</li>
+                    <li>Консультант ERP-систем</li>
+                    <li>Менеджер з продажу</li>
+                    <li>Контент-менеджер</li>
+                    <li>Менеджер інтернет-проєктів</li>
+                    <li>Програміст</li>
+                </ul>
+                <ul class="column">
+                    <li>Програміст 1С</li>
+                    <li>Аналітик</li>
+                    <li>Редактор сайтів</li>
+                    <li>Системний адміністратор</li>
+                    <li>Системний аналітик</li>
+                    <li>Спеціаліст з безпеки інформації</li>
+                    <li>Сценарист комп’ютерних ігор</li>
+                    <li>Тестувальник ПЗ</li>
+                    <li>ERP-програміст</li>
+                    <li>HTML-верстальник</li>
+                </ul>
+            </div>
         </div>
-    </div>      
+    </div>
+    
 
-      <footer class="page-footer" style="background: linear-gradient(-45deg, #e65100, #ffb74d);">
-        <div class="container">
-            <div class="row center-align">
-                    <h5 class="black-text"><b>Ви долистали до кінця!</b></h5>                           
-                    <p class="black-text">Джерело інформації: www.education.ua</p>                                        
-                    <p class="black-text">Дані розробника:</p>
-                    <p class="black-text"><i>Instagram</i> - korovay_z_sillyu</p>
-                    <p class="black-text"><i>Email</i> - vladahvala8@gmail.com</p>
+    <footer>
+        <div class="main_footer">
+            <div class="row">
+                <h5><b>Ви долистали до кінця!</b></h5>                           
+                <p>Джерело інформації: www.education.ua</p>                                        
+                <p>Дані розробника:</p>
+                <p><i>Instagram</i> - korovay_z_sillyu</p>
+                <p><i>Email</i> - vladahvala8@gmail.com</p>
             </div>
         </div>
         <div class="footer-copyright">
-            <div class="container black-text">
-                © Programming.ua
-            </div>
+            <p>© Programming.ua</p>
         </div>
-    </footer>   
+    </footer>
+      
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -7,16 +7,13 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 class MainViewTestCase(TestCase):
     def setUp(self):
         """Підготовка тестових даних."""
-        self.image_path = 'D:\Computer_Professions_site\\blog\static\img\default.jpg'
-        with open(self.image_path, 'rb') as img:
-            self.image = SimpleUploadedFile(name='default.jpg', content=img.read(), content_type='image/jpg')
         # Створюємо категорії
         self.category1 = Category.objects.create(name="Category 1", category_slug="category-1")
         self.category2 = Category.objects.create(name="Category 2", category_slug="category-2")
         
         # Створюємо пости
-        self.post1 = Post.objects.create(title="Post 1", text="Text 1", category=self.category1, img=self.image)
-        self.post2 = Post.objects.create(title="Post 2", text="Text 2", category=self.category2, img=self.image)
+        self.post1 = Post.objects.create(title="Post 1", text="Text 1", category=self.category1)
+        self.post2 = Post.objects.create(title="Post 2", text="Text 2", category=self.category2)
 
     def test_main_page(self):
         """Перевірка, чи завантажується головна сторінка."""
@@ -29,14 +26,10 @@ class MainViewTestCase(TestCase):
 class PostListMainViewTestCase(TestCase):
     def setUp(self):
         """Підготовка тестових даних."""
-        self.image_path = 'D:\Computer_Professions_site\\blog\static\img\default.jpg'
-        with open(self.image_path, 'rb') as img:
-            self.image = SimpleUploadedFile(name='default.jpg', content=img.read(), content_type='image/jpg')
-
         self.category = Category.objects.create(name="Test Category", category_slug="test-category")
-        self.post1 = Post.objects.create(title="Post 1", text="Text 1", category=self.category, img=self.image)
-        self.post2 = Post.objects.create(title="Post 2", text="Text 2", category=self.category, img=self.image)
-        self.post3 = Post.objects.create(title="Another Post", text="Text 3", category=self.category, img=self.image)
+        self.post1 = Post.objects.create(title="Post 1", text="Text 1", category=self.category)
+        self.post2 = Post.objects.create(title="Post 2", text="Text 2", category=self.category)
+        self.post3 = Post.objects.create(title="Another Post", text="Text 3", category=self.category)
 
     def test_post_list_main_page(self):
         """Перевірка відображення списку постів."""
@@ -59,15 +52,12 @@ class PostListMainViewTestCase(TestCase):
 class CategoryListMainViewTestCase(TestCase):
     def setUp(self):
         """Підготовка тестових даних."""
-        self.image_path = 'D:\Computer_Professions_site\\blog\static\img\default.jpg'
-        with open(self.image_path, 'rb') as img:
-            self.image = SimpleUploadedFile(name='default.jpg', content=img.read(), content_type='image/jpg')
 
         self.category1 = Category.objects.create(name="Category 1", category_slug="category-1")
         self.category2 = Category.objects.create(name="Category 2", category_slug="category-2")
-        self.post1 = Post.objects.create(title="Post 1", text="Text 1", category=self.category1, img=self.image)
-        self.post2 = Post.objects.create(title="Post 2", text="Text 2", category=self.category1, img=self.image)
-        self.post3 = Post.objects.create(title="Post 3", text="Text 3", category=self.category2, img=self.image)
+        self.post1 = Post.objects.create(title="Post 1", text="Text 1", category=self.category1)
+        self.post2 = Post.objects.create(title="Post 2", text="Text 2", category=self.category1)
+        self.post3 = Post.objects.create(title="Post 3", text="Text 3", category=self.category2)
 
     def test_category_post_list(self):
         """Перевірка фільтрації постів за категорією."""
@@ -81,12 +71,8 @@ class CategoryListMainViewTestCase(TestCase):
 class ShowPostViewTestCase(TestCase):
     def setUp(self):
         """Підготовка тестових даних."""
-        self.image_path = 'D:\Computer_Professions_site\\blog\static\img\default.jpg'
-        with open(self.image_path, 'rb') as img:
-            self.image = SimpleUploadedFile(name='default.jpg', content=img.read(), content_type='image/jpg')
-
         self.category = Category.objects.create(name="Test Category", category_slug="test-category")
-        self.post = Post.objects.create(title="Test Post", text="Test Content", category=self.category, post_slug="test-post", img=self.image)
+        self.post = Post.objects.create(title="Test Post", text="Test Content", category=self.category, post_slug="test-post")
 
     def test_show_post_view(self):
         """Перевірка відображення окремого поста."""

@@ -12,8 +12,8 @@
                                 <b><h5><a href="/post/{{ post.post_slug }}" style="color:black">{{ post.title }}</a></h5></b>
                             </span>
                             <div class="card-image">
-                                <img class = "center-align responsive-img"
-                                src="/{{ post.img }}">
+                                <img class="center-align responsive-img" src="{{ post.img.url }}" alt="{{ project.title }}">
+                                <p style="color: black;">{{ post.img.url }}</p>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                         <div class="card hoverable">
                             <div class="card-image">    
                                 <img class = "center-align responsive-img">
-                                    <img src="/{{ post.img }}">
+                                    <img src="{{ post.img.url }}">
                                 <a class="btn btn-floating btn-large halfway-fab pulse activator #e65100 orange"
                                 style="background: linear-gradient(-45deg,  #e65100, #ffcc80 , #f3e780);">
                                 <i class="material-icons right">add</i>
@@ -95,22 +95,21 @@
                     {% else %}
                         <li class="disabled"><a href=""><i class="material-icons">chevron_left</i></a></li>
                     {% endif %}
-                
+
                     {% for num in page_obj.paginator.page_range %}
                         {% if page_obj.number == num %}
-                            <li class="active #e65100 orange"><a href="">{{ num }}</a></li>
+                            <li class="active #e65100 orange"><a href="">{{num}}</a></li>
                         {% else %}
-                            <li class="waves-effect"><a href="?page={{ num }}">{{ num }}</a></li>
+                            <li class="waves-effect"><a href="?page={{ num }}">{{num}}</a></li>
                         {% endif %}
                     {% endfor %}
-                
+
                     {% if page_obj.has_next %}
                         <li class="waves-effect"><a href="?page={{ page_obj.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
                     {% else %}
                         <li class="disabled"><a href=""><i class="material-icons">chevron_right</i></a></li>
                     {% endif %}
-                </ul>
-                              
+                </ul>                
             </div>
 
         {% endif %}

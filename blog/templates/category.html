@@ -21,20 +21,19 @@
                         <div class="card-image">    
                             <img class = "center-align responsive-img">
                                 <img src="/{{ post.img }}">
-                            <a class="btn btn-floating btn-large halfway-fab pulse activator #e65100 orange"
-                            style="background: linear-gradient(-45deg,  #e65100, #ffcc80 , #f3e780);">
-                            <i class="material-icons right">add</i>
-                            </a>
+                                <a class="btn-floating activator">
+                                    <i class="material-icons right">add</i>
+                                </a>                                  
                         </div>
 
                         <div class="card-content">
                             <span class="card-title">
-                                <b><h5><a href="/post/{{ post.post_slug }}" style="color:black">{{ post.title }}</a></h5></b>
+                                <b><h5><a href="/post/{{ post.post_slug }}">{{ post.title }}</a></h5></b>
                             </span>
                         </div>
 
                         <div class="card-reveal">
-                            <span class="card-title"><a href="/post/{{ post.post_slug }}" style="color:black">{{ post.title }}</a><i class="material-icons right">close</i></span>
+                            <span class="card-title"><a href="/post/{{ post.post_slug }}">{{ post.title }}</a><i class="material-icons right">close</i></span>
                             <p><div class="card-content" >{{ post.text|truncatechars_html:100|safe }}</div></p>
                         </div>
                             <br>

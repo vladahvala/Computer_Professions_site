@@ -3,10 +3,96 @@ html, body {
   height:100%;
 }
 
-body {
-    background: linear-gradient(-45deg, #e65100, #ffcc80 , #f3e780, #e0e0e0 );
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+/*========== main ==========*/
+.parallax-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 400px;
+}
+
+h1{
+  font-size: 2.2rem;
+}
+
+h1, h5{
+  color: black;
+  font-family:'Quodlibet Sans Light';
+}
+
+.content_title{
+  margin-right: 95px;
+}
+
+.section_content {
+  background: linear-gradient(-45deg, #e65100, #ffcc80 , #f3e780, #e0e0e0 );  
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  display: flex;
+  justify-content: center; /* Вирівнює контент по горизонталі */
+  text-align: center; /* Вирівнює текст по центру */
+}
+
+.intro_par {
+  max-width: 800px; /* Задає максимальну ширину для гарного вигляду */
+  width: 100%;
+  text-align: left;
+}
+
+.columns {
+  display: flex;
+  justify-content: center;
+  gap: 62px;
+  margin-bottom: 50px;
+  text-align: left;
+}
+
+.column {
+  list-style: none;
+  font-size: 18px;
+}
+
+.column li {
+  margin-bottom: 10px;
+}
+
+.footer{
+  padding: 30px;
+  width: 100%;
+}
+
+.main_footer {
+  background-color: #fd8013d2;
+  padding: 30px 0;  
+  text-align: center;  
+  color: #000000;   
+}
+
+.main_footer h5 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.main_footer p {
+  font-size: 1rem;
+  margin: 5px 0;
+  font-family: 'Quodlibet Sans Light', sans-serif;
+}
+
+.footer-copyright {
+  background: rgb(251, 96, 0); 
+  padding: 10px 0;
+  text-align: center;
+  color: #000000;
+  font-size: 0.9rem;
+  font-family: 'Quodlibet Sans Light', sans-serif;
+} 
+
+
+.card-reveal{
+  color: black;
 }
 
 @keyframes gradient {
@@ -21,8 +107,61 @@ body {
     }
 }
 
+
 ::placeholder {
     color: rgb(5, 0, 0);
     opacity: 1; /* Firefox */
   }
+ 
+  .btn-floating {
+    display: inline-block;
+    position: relative;
+    border-radius: 50%;
+    padding: 16px;
+    width: 56px;
+    height: 56px;
+    text-align: center;
+    line-height: 56px;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
   
+  .activator {
+    background: linear-gradient(-45deg, #e65100, #ffcc80, #f3e780);
+    animation: pulse-animation 2s infinite;
+  }
+  
+  .material-icons.right {
+    font-size: 24px;
+    color: white;
+  }
+  
+  @keyframes pulse-animation {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+    
+
+.nav__actions{
+    display: flex;
+    align-items: end;
+    column-gap: 1rem;
+  }
+  
+.nav__actions i{
+    font-size: 1.25rem;
+    color: var(--title-color);
+    cursor: pointer;
+    transition: color .4s;
+  }
+  
+.nav__actions i:hover{
+    color: var(--first-color);
+  }

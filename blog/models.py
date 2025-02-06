@@ -8,7 +8,7 @@ class Category(models.Model):
     name = models.CharField(max_length=80)
     info = models.TextField(blank=True)
     category_slug = models.CharField(max_length=80, default="category_main")
-    img = models.ImageField(upload_to='blog/static/img/categories',
+    img = models.ImageField(upload_to='images/',
                             height_field=None,
                             width_field=None,
                             verbose_name="Зображення категорії", 
@@ -29,8 +29,7 @@ class Post(models.Model):
     text = models.TextField()
     created_at = models.DateField(default=timezone.now) 
     post_slug = models.CharField(max_length=80, default="default_post") 
-    img = models.ImageField(default = 'blog/static/img/default.jpg', 
-                            upload_to='blog/static/img', 
+    img = models.ImageField(default='images/default.jpg', upload_to='images/', 
                             height_field=None, width_field=None,
                             max_length=200,
                             verbose_name="Картинка для поста")
