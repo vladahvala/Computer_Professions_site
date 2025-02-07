@@ -59,13 +59,12 @@
                         </form> 
                       </div> 
                       <div class="nav__actions">
-                        <i class="ri-login-box-line"></i>
-                        <i class="ri-user-line"></i>
+                        <a href="{% url 'login' %}"><i class="ri-login-box-line"></i></a>
+                        <a href="{% url 'logout' %}"><i class="ri-logout-box-r-line"></i></a> 
+                        <div class="col offset-s7">
+                          <a href="/posts" class="dropdown-trigger btn hide-on-med-and-down #8bc34a light-green" data-target='dropMenu'>категорії спеціальностей</a>
+                        </div>
                     </div>
-                    <div class="col offset-s4">
-                      <a href="/posts" class="dropdown-trigger btn hide-on-med-and-down #8bc34a light-green" data-target='dropMenu'>категорії спеціальностей</a>
-                    </div>
-                      
                   </div>
                 </div>
                 <br>

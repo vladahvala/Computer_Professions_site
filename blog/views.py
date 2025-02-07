@@ -1,11 +1,56 @@
 from django.shortcuts import render, redirect
 from .models import Post, Category
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.views.generic.list import ListView
 from django.views.generic import DetailView, CreateView
+from .forms import CustomUserCreationForm
 
+def loginUser(request):
+    page = 'login'
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('main')
+
+    return render(request, 'login_register.html', {'page':page})
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
+def registerUser(request):
+    page = 'register'
+    form = CustomUserCreationForm()
+
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password1'])  # встановлення пароля
+            user.save()  # збереження користувача в базу даних
+
+            # Тепер ми можемо аутентифікувати користувача з новим паролем
+            user = authenticate(request, username=user.username, password=request.POST['password1'])
+            
+            if user is not None:
+                login(request, user)  # авторизація користувача
+                return redirect('main')  # перенаправлення на головну сторінку
+
+    context = {'form': form, 'page': page}
+    return render(request, 'login_register.html', context)
+
+
+@login_required(login_url='login') 
 def main(request, *args):
     page = request.GET.get('page')
     category = Category.objects.all()
@@ -14,7 +59,7 @@ def main(request, *args):
     }
     return render(request, 'main.html', data_dict)
 
-class PostListMain(ListView):
+class PostListMain(LoginRequiredMixin, ListView):
     model = Post
     context_object_name = 'posts'
     template_name = 'posts.html'
@@ -41,7 +86,7 @@ class PostListMain(ListView):
 
 
 
-class CategoryListMain(ListView):
+class CategoryListMain(LoginRequiredMixin, ListView):
     model = Post
     template_name = "category.html"
     context_object_name = 'posts'
@@ -58,7 +103,7 @@ class CategoryListMain(ListView):
             return objects
 
 
-class ShowPost(DetailView):
+class ShowPost(LoginRequiredMixin, DetailView):
     model = Post
     template_name = "post_view.html"
     slug_url_kwarg = "slug"
