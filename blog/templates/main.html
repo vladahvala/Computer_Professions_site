@@ -12,24 +12,15 @@
 </head>
 
 <body>
-    <ul class="sidenav" id="slide-out">
+    <ul class="sidenav" id="slide-out" style="background-color:#dce775">
         <div class="row center-align">
-          <u class="black-text"><b><h3 class="black-text">меню</h3></b></u>
+          <h3 class="sidenav_menu">меню</h3>
         </div>
-        <div class="row">
-            <div class="col s1">
-                <button class="waves-effect waves-light btn #8bc34a light-green" form="search_nav" type="submit"><i class="material-icons">search</i></button>
-            </div>   
-            <div class="col s8 offset-s2">             
-                <form method=GET action="{% url 'search' %}" id="search_nav">
-                  {% csrf_token %}
-                  <input type="search" name="searchpost" placeholder="Шукати статтю" autocomplete="off">
-                </form> 
-            </div> 
-        </div>
-        <li><a class="active" href="/"><i class="material-icons #e65100 orange-text">home</i>Головна</a></li>
-        <li><a href="/posts"><i class="material-icons #e65100 orange-text">laptop_mac</i>Спеціальності</a></li>
-        <!--<li><a href="/admin"><i class="material-icons #e65100 orange-text">https</i>Адміністратор</a></li>-->
+        <li><a class="active" href="/"><i class="material-icons" id="sidenav_home">home</i>Головна</a></li>
+        <li><a href="/posts"><i class="material-icons" id="sidenav_main">laptop_mac</i>Всі спеціальності</a></li>
+        <li><a href="{% url 'login' %}"><i class="material-icons" id="sidenav_login">login</i>Ввійти</a></li>
+        <li><a href="{% url 'logout' %}"><i class="material-icons" id="sidenav_logout">logout</i>Вийти</a></li>
+        
       </ul>
 
       <div class="navbar-fixed">
@@ -39,7 +30,7 @@
                   <a href="/" data-target="slide-out" class="sidenav-trigger show-on-med-and-down"><i class="material-icons">menu</i></a>
                     <ul class="hide-on-med-and-down left">
                       <li><a class="waves-effect waves-light black-text" href="/">Головна</a></li>
-                      <li><a class="waves-effect waves-light black-text" href="/posts">Спеціальності</a></li>
+                      <li><a class="waves-effect waves-light black-text" href="/posts">Всі спеціальності</a></li>
                       <!--<li><a class="waves-effect waves-light black-text" href="/admin">Адміністратор</a></li>-->
                   </ul>                
                 </div>
@@ -122,7 +113,7 @@
                 <p><i>Email</i> - vladahvala8@gmail.com</p>
             </div>
         </div>
-        <div class="footer-copyright">
+        <div class="footer-copyright_main">
             <p>© Programming.ua</p>
         </div>
     </footer>

@@ -9,6 +9,7 @@ from django.db.models import Q
 from django.views.generic.list import ListView
 from django.views.generic import DetailView, CreateView
 from .forms import CustomUserCreationForm
+from .forms import PostForm
 
 def loginUser(request):
     page = 'login'
@@ -48,6 +49,7 @@ def registerUser(request):
 
     context = {'form': form, 'page': page}
     return render(request, 'login_register.html', context)
+
 
 
 @login_required(login_url='login') 
@@ -117,4 +119,16 @@ class ShowPost(LoginRequiredMixin, DetailView):
         context['category'] = Category.objects.all()
         return context
     
+class AddPostView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = "add_post.html"
 
+    def form_valid(self, form):
+        # The form is valid, so we just save the post as usual
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.all()  # Provide existing categories to the template
+        return context

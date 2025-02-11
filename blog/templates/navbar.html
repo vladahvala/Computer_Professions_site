@@ -15,25 +15,40 @@
     
     <body>
 
-        <ul class="sidenav" id="slide-out" style="background-color:#f3e780">
-          <div class="row center-align">
-            <u class="black-text"><b><h3 class="black-text">меню</h3></b></u>
-          </div>
-          <div class="row">
-              <div class="col s1">
-                  <button class="waves-effect waves-light btn #8bc34a light-green" form="search_nav" type="submit"><i class="material-icons">search</i></button>
-              </div>   
-              <div class="col s8 offset-s2">             
-                  <form method=GET action="{% url 'search' %}" id="search_nav">
-                    {% csrf_token %}
-                    <input type="search" name="searchpost" placeholder="Шукати статтю" autocomplete="off" style="text-color:black">
-                  </form> 
-              </div> 
-          </div>
-          <li><a class="active" href="/"><i class="material-icons #e65100 orange-text">home</i>Головна</a></li>
-          <li><a href="/posts"><i class="material-icons #e65100 orange-text">laptop_mac</i>Спеціальності</a></li>
-          <!--<li><a href="/admin"><i class="material-icons #e65100 orange-text">https</i>Адміністратор</a></li>-->
-        </ul>
+      <ul class="sidenav" id="slide-out" style="background-color:#dce775">
+        <div class="row center-align">
+          <h3 class="sidenav_menu">меню</h3>
+        </div>
+        <div class="row">
+            <div class="col s8">             
+              <form method="GET" action="{% url 'search' %}" class="search_nav">
+                  {% csrf_token %}
+                  <input type="search" class="search_field" name="searchpost" placeholder="Шукати тут..." autocomplete="off">
+                  <button type="submit" class="search_btn">
+                    <i class="material-icons">search</i> <!-- Search icon -->
+                  </button>
+              </form> 
+            </div> 
+        </div>
+        <li><a class="active" href="/"><i class="material-icons" id="sidenav_home">home</i>Головна</a></li>
+        <li><a href="/posts"><i class="material-icons" id="sidenav_main">laptop_mac</i>Всі спеціальності</a></li>
+        <li><a href="{% url 'login' %}"><i class="material-icons" id="sidenav_login">login</i>Ввійти</a></li>
+        <li><a href="{% url 'logout' %}"><i class="material-icons" id="sidenav_logout">logout</i>Вийти</a></li>
+        <li><a href="{% url 'add_post' %}"><i class="material-icons" id="sidenav_add">add</i>Додати пост</a></li>
+        
+        <!-- Випадаюче меню для категорій -->
+        <li>
+          <a href="#!" class="dropdown-trigger-mob" data-target="dropMenu"><i class="material-icons" id="sidenav_cat">category</i>Категорії</a>
+          <ul id="dropMenu" class="dropdown-content">
+            {% for cat in category %}
+              <li><a href="/{{cat.category_slug}}" style="color:black">{{cat.name}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        
+        
+      </ul>
+      
 
         <ul id='dropMenu' class='dropdown-content'>
           {% for cat in category %}
@@ -44,62 +59,87 @@
         <div class="navbar-fixed">
           <nav>
               <div class="nav-wrapper #dce775 lime lighten-2">
-                <div class="row">
                   <a href="/" data-target="slide-out" class="sidenav-trigger show-on-med-and-down"><i class="material-icons">menu</i></a>
-                    <ul class="hide-on-med-and-down left">
-                      <li><a class="waves-effect waves-light black-text" href="/">Головна</a></li>
-                      <li><a class="waves-effect waves-light black-text" href="/posts">Спеціальності</a></li>
-                      <!--<li><a class="waves-effect waves-light black-text" href="/admin">Адміністратор</a></li>-->
-                      <li><button class="btn-large waves-effect waves-light #8bc34a light-green" form="search_nav_main" type="submit"><i class="large material-icons center ">search</i></buton></li>
-                    </ul> 
-                      <div class="col s2 hide-on-med-and-down">             
-                        <form method=GET action="{% url 'search' %}" id="search_nav_main">
+                  <ul class="nav__els hide-on-med-and-down">
+                    <li><a class="waves-effect waves-light black-text" href="/">Головна</a></li>
+                    <li><a class="waves-effect waves-light black-text" href="/posts">Всі спеціальності</a></li>
+                    <li>
+                      <a href="/posts" class="nav__categories dropdown-trigger btn hide-on-med-and-down #8bc34a light-green black-text" data-target='dropMenu'>
+                        категорії
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'add_post' %}" class="nav__actions">
+                        <i class="ri-file-add-line"></i>
+                        <span class="icon-label">+ пост</span> 
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/admin" class="nav__actions"><i class="ri-user-line"></i>
+                        <span class="icon-label">Адмін</span> 
+                      </a>
+                      </a>
+                    </li>
+                  
+                    <!-- Вирівнюємо пошук і кнопки справа -->
+                    <div class="search_nav">
+                      <li>
+                        <form method="GET" action="{% url 'search' %}" class="search_nav">
                           {% csrf_token %}
-                          <input type="search" name="searchpost" placeholder="Шукати статтю" autocomplete="off">
-                        </form> 
-                      </div> 
-                      <div class="nav__actions">
-                        <a href="{% url 'login' %}"><i class="ri-login-box-line"></i></a>
-                        <a href="{% url 'logout' %}"><i class="ri-logout-box-r-line"></i></a> 
-                        <div class="col offset-s7">
-                          <a href="/posts" class="dropdown-trigger btn hide-on-med-and-down #8bc34a light-green" data-target='dropMenu'>категорії спеціальностей</a>
-                        </div>
+                          <input type="search" class="search_field" name="searchpost" placeholder="Шукати тут..." autocomplete="off">
+                          <button type="submit" class="search_btn">
+                            <i class="material-icons">search</i> <!-- Search icon -->
+                          </button>
+                          
+                        </form>
+                      </li>
+                      
+                      <li>
+                        <a href="{% url 'login' %}" class="nav__actions">
+                          <i class="ri-login-box-line"></i>
+                          <span class="icon-label">Ввійти</span> 
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{% url 'logout' %}" class="nav__actions">
+                          <i class="ri-logout-box-r-line"></i>
+                          <span class="icon-label">Вийти</span> 
+                        </a>
+                      </li>
                     </div>
-                  </div>
-                </div>
-                <br>
+                  </ul>
               </div>
-          </nav>
-
+            </nav>
+          </div>
             
         <script>  
             document.addEventListener('DOMContentLoaded', function() {
-              var elems = document.querySelectorAll('.dropdown-trigger');
-              var instances = M.Dropdown.init(elems, {
-                outDuration:1000,
-                hover:true
+              var sidebarDropdowns = document.querySelectorAll('.dropdown-trigger');
+              M.Dropdown.init(sidebarDropdowns, {
+                  outDuration: 1000,
+                  hover: true
               });
-            });
+
+              var navbarDropdowns = document.querySelectorAll('.dropdown-trigger-mob');
+              M.Dropdown.init(navbarDropdowns, {
+                  outDuration: 1000,
+                  hover: true
+              });
+          });
+
         </script>
 
-          <script>
+        <script>
               const slide_menu = document.querySelectorAll(".sidenav");
               M.Sidenav.init(slide_menu, {});
-          </script>
+        </script>
 
-        </div>
-        <br><br>
-        <div class = "row">
-          <div class="col s9 offset-s2">
-              {% block carousel %}
-              {% endblock  %}
-          </div>
-        </div>
+        <br>
 
-          {% block content %}
-          {% endblock %}
+        {% block content %}
+        {% endblock %}
  
-        {% if messages %}
+        <!-- {% if messages %}
         <script> 
           M.AutoInit();
           {% for msg in messages %}
@@ -111,8 +151,8 @@
               M.toast({html: "{{msg}}", classes: "blue"});
             {% endif %}
           {% endfor %}
-        </script>
-      {% endif %}
+        </script> 
+      {% endif %} -->
     </body>
 
 </html>

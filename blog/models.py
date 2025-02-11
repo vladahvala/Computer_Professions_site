@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from PIL import Image 
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 
@@ -24,6 +25,8 @@ class Category(models.Model):
     def __str__(self):
         return f"{self.name}   URL: {self.category_slug}"
 
+from django.urls import reverse
+
 class Post(models.Model): 
     title = models.CharField(max_length=100) 
     text = models.TextField()
@@ -36,12 +39,16 @@ class Post(models.Model):
     category = models.ForeignKey(Category, default=1, 
                                  on_delete=models.SET_DEFAULT,
                                  verbose_name="Категорія")
-    
+
     def __str__(self): 
         return self.title
-    def save(self,*agr, **kwargs):
-        super().save()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         img = Image.open(self.img.path)
-        if img.height>650 or img.width>650:
+        if img.height > 650 or img.width > 650:
             img.thumbnail((650, 650))
             img.save(self.img.path)
+
+    def get_absolute_url(self):
+        return reverse('post_url', args=[self.post_slug])

@@ -1,44 +1,91 @@
 {% extends 'navbar.html' %}
 
-    {% block content %}
-            <div class = "container">
-                <div class = "row">
-                    {% for post in posts %}
-                    {% if forloop.first %}
-                    <div class="col s2 l2">
-                    </div>
-                    <div class = "col s10 l5">
-                {% else %}
-                        {% if forloop.counter|divisibleby:2 %}
-                            <div class="col s2">
-                            </div>
-                            <div class="col s10 l5">    
-                        {%else%}
-                            <div class="col s10 l5 offset-s2 offset-l2">
-                        {% endif %}
+{% block content %}
+    <div class="container">
+        <br>
+        {% if posts %}
+        <div class="row center-align">
+            {% for post in posts %}
+                {% if forloop.counter0|divisibleby:2 %}
+                    <div class="col s12 m10 offset-m1 l8 offset-l2">
+                        <div class="row">
                 {% endif %}
-                    <div class="card hoverable">
-                        <div class="card-image">    
-                            <img class = "center-align responsive-img">
-                                <img src="/{{ post.img }}">
-                                <a class="btn-floating activator">
-                                    <i class="material-icons right">add</i>
-                                </a>                                  
-                        </div>
-
-                        <div class="card-content">
-                            <span class="card-title">
-                                <b><h5><a href="/post/{{ post.post_slug }}">{{ post.title }}</a></h5></b>
-                            </span>
-                        </div>
-
-                        <div class="card-reveal">
-                            <span class="card-title"><a href="/post/{{ post.post_slug }}">{{ post.title }}</a><i class="material-icons right">close</i></span>
-                            <p><div class="card-content" >{{ post.text|truncatechars_html:100|safe }}</div></p>
-                        </div>
-                            <br>
+                            <div class="col s12 m6">
+                                <div class="card_post card hoverable">
+                                    <div class="card-image">    
+                                        <img class="center-align responsive-img" src="{{ post.img.url }}">
+                                        <a class="btn btn-floating btn-large halfway-fab pulse-button activator">
+                                            <i class="material-icons right" id="add_btn">add</i>
+                                        </a>
+                                    </div>
+                                    <div class="card-content">
+                                        <span class="card-title">
+                                            <b><h5><a href="/post/{{ post.post_slug }}" class="card_post_title">{{ post.title }}</a></h5></b>
+                                        </span>
+                                    </div>
+                                    <div class="card-reveal card_rev">
+                                        <span class="card-title" id="card_post_title">
+                                            <a href="/post/{{ post.post_slug }}" id="post_rev_title">{{ post.title }}</a>
+                                            <i class="material-icons right" id="close_btn">close</i>
+                                        </span>
+                                        <p>
+                                            <div class="card-content">{{ post.text|truncatechars_html:70|safe }}</div>
+                                        </p>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                    {% if forloop.counter|divisibleby:2 or forloop.last %}
                         </div>
                     </div>
-                {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+        {% endif %}
+
+        <div class="row center-align">
+            <div class="col s12">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="waves-effect"><a href="?page={{ page_obj.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                    {% else %}
+                        <li class="disabled"><a href=""><i class="material-icons">chevron_left</i></a></li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="active #e65100 green"><a href="">{{ num }}</a></li>
+                        {% else %}
+                            <li class="waves-effect"><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="waves-effect"><a href="?page={{ page_obj.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                    {% else %}
+                        <li class="disabled"><a href=""><i class="material-icons">chevron_right</i></a></li>
+                    {% endif %}
+                </ul>
             </div>
+        </div>
+    </div>
+
+    <br><br>
+
+    <footer>
+        <div class="post_footer">
+            <div class="row">
+                <h5><b>Ви долистали до кінця!</b></h5>                           
+                <p>Джерело інформації: www.education.ua</p>                                        
+                <p>Дані розробника:</p>
+                <p><i>Instagram</i> - korovay_z_sillyu</p>
+                <p><i>Email</i> - vladahvala8@gmail.com</p>
+            </div>
+        </div>
+        <div class="footer-copyright_post">
+            <p>© Programming.ua</p>
+        </div>
+    </footer>
+
 {% endblock %}
