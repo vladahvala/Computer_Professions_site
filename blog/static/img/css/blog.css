@@ -319,3 +319,84 @@ body{
   font-size: 0.9rem;
   font-family: 'Quodlibet Sans Light', sans-serif;
 } 
+
+
+/*========== author ==========*/
+.author-box-container {
+  display: flex;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  margin: 16px;
+  border-radius: 73px;
+  max-width: 603px;
+  height: 116px;
+  box-shadow: 0 4px 16px -5px rgba(0, 0, 0, 1.3);
+}
+
+.author-box-container .author-image {
+  width: 115px;  /* Збільшено ширину контейнера */
+  height: 115px; /* Збільшено висоту контейнера */
+  border-radius: 50%; /* Робимо круглим */
+  overflow: hidden; /* Обрізаємо все зайве за межами кола */
+  flex: 0 0 auto;  /* Фіксована ширина */
+}
+
+.author-box-container .author-image img {
+  width: 100%; /* Зображення заповнює контейнер */
+  height: 100%; /* Зображення заповнює контейнер */
+  object-fit: cover; /* Зберігає пропорції зображення і обрізає зайве */
+}
+
+
+.author-box-container .author-info {
+  flex: 2;
+  padding: 0 24px;
+}
+
+.author-box-container .author-info h3 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.author-box-container .author-info .description {
+  line-height: 2;
+  color: #555;
+}
+
+.author-box-container .author-info .social a {
+  font-size: 32px;
+  text-decoration: none;
+  padding: 0 16px;
+  display: inline-block;
+  transition: all 400ms;
+}
+
+.author-box-container .author-info .social a:hover {
+  transform: scale(1.1);
+}
+
+.author-box-container .author-info .social .fa-facebook-square {
+  color: #3b5998;
+}
+
+.author-box-container .author-info .social .fa-twitter-square {
+  color: #1da1f2;
+}
+
+.author-box-container .author-info .social .fa-instagram-square {
+  color: #fd1d1d;
+}
+
+@media (max-width: 500px) {
+  .author-box-container {
+      flex-direction: column;
+      max-width: 240px;
+      padding: 20px 8px;
+      text-align: center;
+  }
+
+  .author-box-container .author-image {
+      width: 100%;
+      margin-bottom: 20px;
+  }
+}

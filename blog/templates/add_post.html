@@ -2,35 +2,281 @@
 
 {% block content %}
 
-<h1>Додати пост...</h1>
-<br><br>
+<style>
+    /* Ensuring the form has the proper background and padding */
+    .form-container {
+        background-color: white; 
+        padding: 26px;
+    }
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Aligns form to the top */
+        height: 100vh;
+        padding: 0;
+    }
 
-    <div class="form-group">
-        <label for="id_title">Назва</label>
-        {{ form.title }}
+    .form-container {
+        background-color: white;
+        padding: 30px;
+        width: 70%;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding-top: 0;
+    }
+
+    .form-group label,
+    .form-group small {
+        color: black;
+    }
+
+    .form-group input,
+    .form-group select{
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        height: 70px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    /* Textarea specific styles */
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        height: 100px; /* Increase height for text area */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    /* Image input specific styles */
+    .form-group input[type="file"] {
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        height: 44px;
+    }
+
+    /* Стиль для кнопки */
+    .btn-primary {
+        margin-top: 15px;
+        background-color: #4CAF50; /* Зелений відтінок */
+        border-color: #183119; /* Темніший зелений */
+        color: white;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Додаємо анімації */
+        width: auto;
+        display: inline-flex; /* Використовуємо flexbox */
+        justify-content: center; /* Центрування по горизонталі */
+        align-items: center; /* Центрування по вертикалі */
+        text-align: center; /* Центрування тексту */
+    }
+
+    /* Ефекти при наведенні */
+    .btn-primary:hover {
+        background-color: #388E3C; /* Темніший зелений для hover */
+        border-color: #2C6B2F;
+        transform: translateY(-3px); /* Легке підняття кнопки */
+    }
+
+    .btn-primary:active {
+        background-color: #2C6B2F; /* Темно-зелений при натисканні */
+        border-color: #1E4C23;
+        transform: translateY(0); /* Повернення до початкового положення */
+    }
+
+    /* Адаптивний дизайн для кнопки */
+    @media (max-width: 768px) {
+        .btn-primary {
+            width: 100%; /* Кнопка займає всю ширину на малих екранах */
+            font-size: 18px; /* Збільшений шрифт для кращої видимості */
+        }
+    }
+
+    h1 {
+        font-family: 'Quodlibet Sans Light', sans-serif;
+        font-size: 28px;
+        font-weight: bold;
+        color: #333;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 29px;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #dce775;
+        text-align: center;
+    }
+
+    /* Dropdown menu unique styling */
+    .custom-dropdown-content li > a, 
+    .custom-dropdown-content li > span {
+        font-size: 16px;
+        color: green;
+        display: block;
+        line-height: 22px;
+        padding: 14px 16px;
+    }
+
+    /* Popup (modal) style */
+    .popup-message {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1050;
+    }
+
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        max-width: 400px;
+        margin: auto;
+        z-index: 1060;
+    }
+
+    .popup-content button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .popup-content button:hover {
+        background-color: #388E3C;
+    }
+
+</style>
+
+<div class="container mt-5">
+    <div class="form-container">
+        <h1 class="text">Додати пост...</h1>
+        <form method="POST" enctype="multipart/form-data" id="postForm">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Назва посту</label>
+                {{ form.title }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.existing_category.id_for_label }}">Категорія</label>
+                {{ form.existing_category }}
+                <small class="form-text text-muted">Або введіть нову:</small>
+                {{ form.new_category }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.text.id_for_label }}">Текст</label>
+                {{ form.text }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.img.id_for_label }}">Зображення</label>
+                {{ form.img }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.post_slug.id_for_label }}">Посилання на пост</label>
+                {{ form.post_slug }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Створити пост</button>
+        </form>
     </div>
+</div>
 
-    <div class="form-group">
-        <label for="id_text">Текст</label>
-        {{ form.text }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+    });
+
+    // Add form submission check for category conflict and slug validation
+    document.getElementById('postForm').addEventListener('submit', function(event) {
+        var existingCategory = document.querySelector('[name="existing_category"]').value;
+        var newCategory = document.querySelector('[name="new_category"]').value;
+        var postSlug = document.querySelector('[name="post_slug"]').value;
+
+        // Check if both existing category and new category are selected
+        if (existingCategory && newCategory) {
+            event.preventDefault();  // Prevent form submission
+            showPopup('Будь ласка, виберіть лише одну категорію: існуючу або нову!');
+            return;
+        }
+
+        // Check if post_slug is equal to 'default_post'
+        if (postSlug === 'default_post') {
+            event.preventDefault();  // Prevent form submission
+            showPopup('Посилання на пост не може бути "default_post". Виберіть унікальне посилання!');
+            return;
+        }
+    });
+
+    // Show the custom popup with a specific message
+    function showPopup(message) {
+        var popup = document.createElement('div');
+        popup.classList.add('popup-message');
+        
+        var popupContent = document.createElement('div');
+        popupContent.classList.add('popup-content');
+        popupContent.innerHTML = `
+            <p>${message}</p>
+            <button onclick="closePopup()">Закрити</button>
+        `;
+        popup.appendChild(popupContent);
+
+        document.body.appendChild(popup);
+
+        // Show the popup
+        popup.style.display = 'flex';
+    }
+
+    // Close the popup
+    function closePopup() {
+        var popup = document.querySelector('.popup-message');
+        if (popup) {
+            popup.style.display = 'none';
+            document.body.removeChild(popup);
+        }
+    }
+</script>
+
+{% if form.post_slug.errors %}
+    <div id="slugWarningPopup" class="popup-message">
+        <div class="popup-content">
+            <p>Це посилання на пост вже зайняте. Виберіть інше.</p>
+            <button id="closePopupBtn">Закрити</button>
+        </div>
     </div>
+{% endif %}
 
-    <div class="form-group">
-        <label for="id_img">Зображення</label>
-        {{ form.img }}
-    </div>
+<script>
+    // Show popup if slug error exists
+    {% if form.post_slug.errors %}
+        document.getElementById('slugWarningPopup').style.display = 'flex';
+    {% endif %}
 
-    <div class="form-group">
-        <label for="id_category">Категорія</label>
-        {{ form.category }}
-    </div>
-
-    <button type="submit" class="btn btn-primary">Створити пост</button>
-</form>
-
-
+    // Close popup when the close button is clicked
+    document.getElementById('closePopupBtn').addEventListener('click', function() {
+        document.getElementById('slugWarningPopup').style.display = 'none';
+    });
+</script>
 
 {% endblock %}

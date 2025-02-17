@@ -119,13 +119,23 @@ class ShowPost(LoginRequiredMixin, DetailView):
         context['category'] = Category.objects.all()
         return context
     
+from django.core.exceptions import ValidationError
+
 class AddPostView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = "add_post.html"
 
     def form_valid(self, form):
-        # The form is valid, so we just save the post as usual
+        # Check if the slug already exists in the database
+        post_slug = form.cleaned_data['post_slug']
+        
+        # If the slug already exists, raise a validation error
+        if Post.objects.filter(post_slug=post_slug).exists():
+            form.add_error('post_slug', 'This slug is already taken. Please choose another one.')
+            return self.form_invalid(form)  # If invalid, re-render the form with error
+        
+        # Otherwise, proceed with saving the post
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

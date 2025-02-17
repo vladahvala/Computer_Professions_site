@@ -21,7 +21,8 @@ from django.urls import path, re_path, include
 urlpatterns = [
     path('admin/', admin.site.urls), 
     path('tinymce/', include('tinymce.urls')),
-    path('', include('blog.urls'))
+    path('', include('blog.urls')),
+    path('', include('profiles.urls')),
 ] 
 
 if settings.DEBUG:

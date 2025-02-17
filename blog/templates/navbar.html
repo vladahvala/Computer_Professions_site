@@ -4,7 +4,9 @@
     <head>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}?v=1">
+
+        
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         
@@ -98,6 +100,12 @@
                         <a href="{% url 'login' %}" class="nav__actions">
                           <i class="ri-login-box-line"></i>
                           <span class="icon-label">Ввійти</span> 
+                        </a>
+                      </li>
+                      <li>
+                        <a href="{% url 'account' %}" class="nav__actions">
+                          <i class="ri-user-line"></i>
+                          <span class="icon-label">Акаунт</span> 
                         </a>
                       </li>
                       <li>

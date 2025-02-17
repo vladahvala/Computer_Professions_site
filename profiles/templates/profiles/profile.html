@@ -1,0 +1,360 @@
+{% extends 'navbar.html' %}
+{% block content %}
+
+<style>
+
+body {
+    background: linear-gradient(-45deg, #e65100, #ffcc80, #f3e780, #e0e0e0);
+    background-size: 700% 700%;
+    animation: gradient 15s ease infinite;
+}
+
+
+.container {
+    margin-top: 20px;
+}
+
+h3{
+    text-align: center;
+}
+
+.row_all {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 100px; /* Збільшив відстань між карткою профілю та статтями */
+}
+
+
+/* Пагінація */
+.pagination {
+    margin-top: 50px; /* Збільшив відстань між постами та пагінацією */
+    display: flex;
+    justify-content: center;
+    gap: 5px; /* Відстань між номерами сторінок */
+}
+
+/* Блок користувача
+.placeholderContainer { 
+    width: 300px; 
+    height: 550px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-around; 
+    flex-direction: column; 
+    background-color: white; 
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-left: -60px; 
+}
+
+.placeholderImg { 
+    width: 200px; 
+    height: 200px; 
+    border-radius: 50%; 
+    border: 2px solid black; 
+}
+
+.placeholderImg img {
+    width: 100%; 
+    height: 100%; 
+    border-radius: 50%;
+} */
+
+.card {
+    width: 350px;
+    height: 515px;
+    /* margin: 100px auto 0; */
+    perspective: 1000px; /* Додаємо перспективу для обертання */
+    display: flex; 
+    align-items: center; 
+    flex-direction: column; 
+    position: relative;
+    margin-left: -60px; 
+    background-color: transparent;
+    outline: none;
+    border: none;
+    box-shadow: none; /* Вимикаємо тінь */
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+}
+
+.front, .back {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    position: absolute;
+    backface-visibility: hidden; /* Забезпечує непрозорість тильної сторони при обертанні */
+}
+
+.front {
+    background: url('{{ profile.picture.url }}');
+    background-size: cover;
+    background-position: center;
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: #fff;
+}
+
+.front h2 {
+    font-weight: 500;
+    position: relative;
+    bottom: -81px;
+    align-self: center;
+}
+.front p {
+    color: #ccc;
+    font-size: 13px;
+    position: relative;
+    top: 55px;
+    right: -94px;
+}
+
+.front button {
+    width: 120px;
+    border: 1px solid #fff;
+    background: transparent;
+    border-radius: 50px;
+    padding: 8px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    color: #fff;
+    position: relative;
+    bottom: -40px;
+    left: 175px;
+}
+
+.back {
+    background-color: white; /* Прозорий фон */
+    color: #333;
+    padding: 20px 40px;
+    transform: rotateY(180deg); /* Задня частина картки обертається */
+    border: none; 
+    align-items: center;
+    justify-content: first baseline; /* Додає вирівнювання по центру */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.back h1 {
+    font-size: 50px;
+    line-height: 55px;
+    margin-bottom: 10px;
+}
+
+
+.back img {
+    width: 85px;
+}
+
+
+.card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+
+
+/* Основний контент справа */
+.content_right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Біографія */
+.about_user {
+    width: 100%;
+    max-width: 800px;
+    text-align: left;
+    
+}
+
+.about_user h3 {
+    margin-bottom: 10px;
+}
+
+.bio {
+    font-size: 18px;
+}
+
+/* Статті */
+.articles_section {
+    margin-top: -37px;
+}
+
+.articles_section h3 {
+    margin-bottom: 10px;
+}
+
+/* Сітка постів */
+.posts_grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 в ряд */
+    gap: 20px;
+    max-width: 800px;
+}
+
+.card .card-content {
+    padding: 17px;
+    padding-top: 27px;
+    border-radius: 0 0 2px 2px;
+    position: relative;
+    top: -20px;
+}
+
+
+/* Карточка поста */
+.card_post {
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    height: auto;
+    background-color: #fff;
+}
+
+.card-image img {
+    width: 100%;
+    height: auto;
+    
+}
+
+.card-reveal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+
+/* Адаптив для планшетів і телефонів */
+@media (max-width: 1024px) {
+    .row_all {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card {
+        margin-left: 0; /* Прибираємо лівий відступ для вирівнювання картки */
+        margin-top: 20px;
+        width: 100%; /* Робимо картку повною шириною */
+        max-width: 350px; /* Обмежуємо максимальну ширину картки */
+        text-align: center; /* Центруємо контент всередині картки */
+    }
+
+    .content_right {
+        width: 100%; /* Робимо контент повною шириною */
+        text-align: center;
+    }
+
+    .posts_grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 колонки навіть на планшетах */
+        gap: 20px;
+        max-width: 800px;
+    }
+}
+
+/* Для мобільних пристроїв – одна колонка */
+@media (max-width: 600px) {
+    .posts_grid {
+        grid-template-columns: repeat(1, 1fr); /* 1 пост на ряд */
+    }
+}
+
+</style>
+
+<div class='container'> 
+    <div class='row_all'> 
+
+        <div class="card">
+            <div class="card-inner">
+                <div class="front">
+                    <h2>{{ profile.name }}</h2>
+                    <p>{{ profile.profession }}</p>
+                    <button>Наведи курсор</button> 
+                </div>
+                <div class="back">
+                    <img src="\media\profile\waving-hand.png">
+                    <h3><strong>Про мене:</strong></h3> 
+                    <p class='bio'> 
+                        {{ profile.about }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        
+        
+        <!-- Основний контент (біографія + статті) -->
+        <div class='content_right'> 
+            <!-- Статті -->
+            <div class='articles_section'>
+                <h3><strong>Мої статті</strong></h3> 
+                <div class='posts_grid'>
+                    {% for post in page_obj %}
+                        <div class='card_post card hoverable'>
+                            <div class='card-image'>    
+                                <img class='center-align responsive-img' src='{{ post.img.url }}'>
+                                <a class='btn btn-floating btn-large halfway-fab pulse-button activator'>
+                                    <i class='material-icons right' id='add_btn'>add</i>
+                                </a>
+                            </div>
+                            <div class='card-content'>
+                                <span class='card-title'>
+                                    <b><h5><a href='/post/{{ post.post_slug }}' class='card_post_title'>{{ post.title }}</a></h5></b>
+                                </span>
+                            </div>
+                            <div class='card-reveal card_rev'>
+                                <span class='card-title' id='card_post_title'>
+                                    <a href='/post/{{ post.post_slug }}' id='post_rev_title'>{{ post.title }}</a>
+                                    <i class='material-icons right' id='close_btn'>close</i>
+                                </span>
+                                <p>
+                                    <div class='card-content'>{{ post.text|truncatechars_html:70|safe }}</div>
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Пагінація -->
+                <div class='pagination'>
+                    {% if page_obj.has_previous %}
+                        <li class='waves-effect'><a href='?page={{ page_obj.previous_page_number }}'><i class='material-icons'>chevron_left</i></a></li>
+                    {% else %}
+                        <li class='disabled'><a href=''><i class='material-icons'>chevron_left</i></a></li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class='active #e65100 green'><a href=''>{{ num }}</a></li>
+                        {% else %}
+                            <li class='waves-effect'><a href='?page={{ num }}'>{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class='waves-effect'><a href='?page={{ page_obj.next_page_number }}'><i class='material-icons'>chevron_right</i></a></li>
+                    {% else %}
+                        <li class='disabled'><a href=''><i class='material-icons'>chevron_right</i></a></li>
+                    {% endif %}
+                </div>
+
+                <br><br><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

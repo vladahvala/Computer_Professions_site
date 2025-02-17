@@ -3,7 +3,7 @@ from django.utils import timezone
 from PIL import Image 
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+from profiles.models import UserProfile
 
 class Category(models.Model):
     name = models.CharField(max_length=80)
@@ -23,11 +23,13 @@ class Category(models.Model):
             img.thumbnail((200, 200))
             img.save(self.img.path)
     def __str__(self):
-        return f"{self.name}   URL: {self.category_slug}"
+        return f"{self.name}"
+        # return f"{self.name}   URL: {self.category_slug}"
 
 from django.urls import reverse
 
 class Post(models.Model): 
+    writer = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=100) 
     text = models.TextField()
     created_at = models.DateField(default=timezone.now) 
