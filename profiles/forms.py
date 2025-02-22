@@ -12,7 +12,6 @@ class UpdateProfileForm(ModelForm):
             'username': 'Ім\'я користувача',
             'profession': 'Професія',
             'picture': 'Аватар',
-            'avatar': 'Аватар',
             'about': 'Про себе',
         }
         widgets = {

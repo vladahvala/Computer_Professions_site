@@ -72,7 +72,7 @@ class PostListMain(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['slide_posts'] = Post.objects.all().order_by('id')  # Додаємо сортування для slide_posts
+        context['slide_posts'] = Post.objects.all().order_by('title')  # Додаємо сортування для slide_posts
         context['category'] = Category.objects.all()
         return context
 
@@ -87,7 +87,7 @@ class PostListMain(LoginRequiredMixin, ListView):
                 Q(title__icontains=search_query.capitalize())
             )
 
-        return queryset.order_by('id')  # Завжди сортуємо за 'id'
+        return queryset.order_by('title')  # Завжди сортуємо за 'id'
 
 class CategoryListMain(LoginRequiredMixin, ListView):
     model = Post

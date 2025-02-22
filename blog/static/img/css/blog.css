@@ -113,6 +113,10 @@ h1, h5{
 
 
 /*========== navbar ==========*/
+strong{
+  font-weight: 900;
+}
+
 .nav__els{
   display: flex; 
   align-items: center; 
