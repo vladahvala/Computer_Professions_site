@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="{% static 'js/parallax.js' %}"></script>
 </head>
 
 <body>
@@ -20,8 +21,8 @@
         <li><a href="/posts"><i class="material-icons" id="sidenav_main">laptop_mac</i>Всі спеціальності</a></li>
         <li><a href="{% url 'login' %}"><i class="material-icons" id="sidenav_login">login</i>Ввійти</a></li>
         <li><a href="{% url 'logout' %}"><i class="material-icons" id="sidenav_logout">logout</i>Вийти</a></li>
-        
-      </ul>
+        <li><a href="{% url 'account' %}"><i class="material-icons" id="sidenav_add">person</i>Акаунт</a></li>
+    </ul>
 
       <div class="navbar-fixed">
         <nav>
@@ -38,11 +39,6 @@
               <br>
             </div>
         </nav>
-
-        <script>
-            const slide_menu = document.querySelectorAll(".sidenav");
-            M.Sidenav.init(slide_menu, {});
-        </script>
 
     <div class="parallax-container">
         <div class="parallax">
@@ -118,13 +114,6 @@
         </div>
     </footer>
       
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.parallax');
-            var instances = M.Parallax.init(elems, {});
-          });        
-    </script>
 </body>
 </html>
 

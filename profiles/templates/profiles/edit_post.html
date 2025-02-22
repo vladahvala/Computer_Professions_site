@@ -1,0 +1,55 @@
+{% load static %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/edit_post.css' %}">
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'js/edit_post.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
+    <div class="container mt-5">
+        <div class="form-container">
+            <h2>Редагувати пост</h2>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="post_slug" value="{{ post_slug }}">
+                <div class="form-group">
+                    <label for="title">Заголовок</label>
+                    <input type="text" name="title" id="title" class="form-control" value="{{ post.title }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="text">Текст посту</label>
+                    <textarea name="text" id="editor" class="form-control" rows="5" required>{{ post.text }}</textarea>
+
+                </div>
+
+                <input list="categories" name="category" id="id_category" class="form-control" placeholder="Введіть або виберіть категорію">
+                <datalist id="categories">
+                    {% for cat in categories %}
+                        <option value="{{ cat.name }}">
+                    {% endfor %}
+                </datalist>
+
+                <div class="current-category">
+                    Поточна категорія: <strong>{{ post.category }}</strong>
+                </div>
+
+                
+                <div class="form-group">
+                    <label for="img">Зображення</label>
+                    <input type="file" name="img" id="img" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+                <a href="{% url 'account' %}" class="btn btn-secondary">Назад до профілю</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

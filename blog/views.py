@@ -10,6 +10,7 @@ from django.views.generic.list import ListView
 from django.views.generic import DetailView, CreateView
 from .forms import CustomUserCreationForm
 from .forms import PostForm
+from django.core.exceptions import ValidationError
 
 def loginUser(request):
     page = 'login'
@@ -61,6 +62,8 @@ def main(request, *args):
     }
     return render(request, 'main.html', data_dict)
 
+
+
 class PostListMain(LoginRequiredMixin, ListView):
     model = Post
     context_object_name = 'posts'
@@ -86,24 +89,28 @@ class PostListMain(LoginRequiredMixin, ListView):
 
         return queryset.order_by('id')  # Завжди сортуємо за 'id'
 
-
-
 class CategoryListMain(LoginRequiredMixin, ListView):
     model = Post
     template_name = "category.html"
     context_object_name = 'posts'
     paginate_by = 4
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = Category.objects.all()
+        context['category'] = Category.objects.all()  # для меню
+        
+        # Отримання вибраної категорії за допомогою slug
+        slug = self.kwargs['category_slug']
+        try:
+            selected_category = Category.objects.get(category_slug=slug)
+        except Category.DoesNotExist:
+            selected_category = None
+        context['selected_category'] = selected_category
         return context
+
     def get_queryset(self):
         slug = self.kwargs['category_slug']
-        if slug:
-            objects = Post.objects.filter(category__category_slug = slug)
-            print(objects)
-            return objects
-
+        return Post.objects.filter(category__category_slug=slug)
 
 class ShowPost(LoginRequiredMixin, DetailView):
     model = Post
@@ -119,26 +126,36 @@ class ShowPost(LoginRequiredMixin, DetailView):
         context['category'] = Category.objects.all()
         return context
     
-from django.core.exceptions import ValidationError
-
 class AddPostView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = "add_post.html"
 
     def form_valid(self, form):
-        # Check if the slug already exists in the database
         post_slug = form.cleaned_data['post_slug']
         
-        # If the slug already exists, raise a validation error
         if Post.objects.filter(post_slug=post_slug).exists():
             form.add_error('post_slug', 'This slug is already taken. Please choose another one.')
-            return self.form_invalid(form)  # If invalid, re-render the form with error
-        
-        # Otherwise, proceed with saving the post
+            return self.form_invalid(form)  
+        post = form.save(commit=False) 
+        post.writer = self.request.user.userprofile  
+        post.save()  
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = Category.objects.all()  # Provide existing categories to the template
+        context['category'] = Category.objects.all()  
         return context
+    
+
+# Функція для створення посту
+def create_post(request):
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('post_list')
+    else:
+        form = PostForm()
+    return render(request, 'post_form.html', {'form': form, 'categories': categories})

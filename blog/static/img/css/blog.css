@@ -30,8 +30,8 @@ h1, h5{
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
   display: flex;
-  justify-content: center; /* Вирівнює контент по горизонталі */
-  text-align: center; /* Вирівнює текст по центру */
+  justify-content: center; 
+  text-align: center; 
 }
 
 .intro_par {
@@ -120,24 +120,25 @@ h1, h5{
 }
 
 .nav__categories{
-  width: 160px;
+  width: auto;
+  min-width: 150px;
 }
 
 .nav__actions{
   color: black;
   display: flex;
-  flex-direction: column; /* Stack icon and label vertically */
-  align-items: center; /* Center horizontally */
-  position: relative; /* Allow positioning of the label */
+  flex-direction: column; 
+  align-items: center; 
+  position: relative; 
   top: -7px;
 }
 
 .icon-label {
-  font-size: 0.8rem; /* Small text size */
-  margin-top: 5px; /* Space between the icon and label */
-  color: black; /* Label color */
-  position: absolute; /* Position it absolutely within the anchor */
-  bottom: -20px; /* Adjust the position of the label */
+  font-size: 0.8rem;
+  margin-top: 5px; 
+  color: black;
+  position: absolute;
+  bottom: -20px; 
 }
 
 .search_nav{
@@ -154,15 +155,15 @@ h1, h5{
   padding: 10px;
   cursor: pointer;
   display: flex;
-  justify-content: center; /* Center the icon horizontally */
-  align-items: center; /* Center the icon vertically */
-  width: 40px; /* Set the button width */
-  height: 38px; /* Set the button height */
+  justify-content: center; 
+  align-items: center; 
+  width: 40px; 
+  height: 38px; 
 }
 
 .search_btn .material-icons {
-  font-size: 20px; /* Adjust icon size */
-  margin: 0; /* Remove any margin around the icon */
+  font-size: 20px; 
+  margin: 0; 
 }
 
 .search_nav input.search_field {
@@ -205,6 +206,13 @@ h1, h5{
 #sidenav_cat{
   color: #6da08e;
 }
+
+.selected-category {
+  display: flex;
+  gap: 5px; 
+  align-items: center; 
+}
+
 
 /*========== posts ==========*/
 body{
@@ -321,7 +329,7 @@ body{
 } 
 
 
-/*========== author ==========*/
+/*========== post writer ==========*/
 .author-box-container {
   display: flex;
   align-items: center;
@@ -334,17 +342,17 @@ body{
 }
 
 .author-box-container .author-image {
-  width: 115px;  /* Збільшено ширину контейнера */
-  height: 115px; /* Збільшено висоту контейнера */
-  border-radius: 50%; /* Робимо круглим */
-  overflow: hidden; /* Обрізаємо все зайве за межами кола */
-  flex: 0 0 auto;  /* Фіксована ширина */
+  width: 115px; 
+  height: 115px; 
+  border-radius: 50%; 
+  overflow: hidden; 
+  flex: 0 0 auto; 
 }
 
 .author-box-container .author-image img {
-  width: 100%; /* Зображення заповнює контейнер */
-  height: 100%; /* Зображення заповнює контейнер */
-  object-fit: cover; /* Зберігає пропорції зображення і обрізає зайве */
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover;
 }
 
 
@@ -400,3 +408,489 @@ body{
       margin-bottom: 20px;
   }
 }
+
+
+/*========== add post ==========*/
+  .add-post-form-container {
+      background-color: white; 
+      padding: 26px;
+  }
+
+  .add-post-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; 
+      height: 100vh;
+      padding: 0;
+  }
+
+  .add-post-form-container {
+      background-color: white;
+      padding: 30px;
+      width: 50%;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding-top: 0;
+  }
+
+  .add-post-form-group label,
+  .add-post-form-group small {
+      color: black;
+  }
+
+  .add-post-form-group input,
+  .add-post-form-group select{
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      height: 70px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+  }
+
+  .add-post-form-group textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      height: 100px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+  }
+
+  #id_img {
+      height: 45px;
+  }
+
+  .btn-add-post {
+      margin-top: 15px;
+      background-color: #4CAF50;
+      border-color: #183119;
+      color: white;
+      padding: 0px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .btn-add-post:hover {
+      background-color: #388E3C;
+      border-color: #2C6B2F;
+      transform: translateY(-3px);
+  }
+
+  .btn-add-post:active {
+      background-color: #2C6B2F;
+      border-color: #1E4C23;
+      transform: translateY(0);
+  }
+
+  h1.add-post-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      margin-top: 29px;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #dce775;
+      text-align: center;
+  }
+
+  .slug-tooltip {
+      display: none;
+      color: black;
+      font-size: 14px;
+      margin-top: 5px;
+  }
+
+  #id_post_slug:hover + .slug-tooltip {
+      display: block;
+  }
+
+  .invalid-feedback {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+  }
+
+
+/*========== account ==========*/
+.account__container{
+  margin-top: 20px;
+}
+
+.account__row_all{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 100px; 
+  margin-left: 75px;
+}
+
+
+/* аватар-біо */
+.account__card {
+  width: 350px;
+  height: 515px;
+  perspective: 1000px; /* Додаємо перспективу для обертання */
+  display: flex; 
+  align-items: center; 
+  flex-direction: column; 
+  position: relative;
+  margin-left: 10px; 
+  background-color: transparent;
+  outline: none;
+  border: none;
+  box-shadow: none; 
+}
+
+.account__card .card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.account__card .front, .account__card .back {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  position: absolute;
+  backface-visibility: hidden; /* Забезпечує непрозорість тильної сторони при обертанні */
+}
+
+.account__card .front {
+  background-size: cover;
+  background-position: center;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #fff;
+}
+
+.account__card .front h2 {
+  font-weight: 500;
+  position: relative;
+  bottom: -81px;
+  align-self: center;
+}
+
+.account__card .front p {
+  color: #ccc;
+  font-size: 13px;
+  position: relative;
+  top: 55px;
+  right: -94px;
+}
+
+.account__card .front button {
+  width: 120px;
+  border: 1px solid #fff;
+  background: transparent;
+  border-radius: 50px;
+  padding: 8px 20px;
+  cursor: pointer;
+  margin-top: 20px;
+  color: #fff;
+  position: relative;
+  bottom: -40px;
+  left: 175px;
+}
+
+.account__card .back {
+  background-color: white; /* Прозорий фон */
+  color: #333;
+  padding: 20px 40px;
+  transform: rotateY(180deg); /* Задня частина картки обертається */
+  border: none; 
+  align-items: center;
+  justify-content: first baseline; /* Додає вирівнювання по центру */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.account__card .back h1 {
+  font-size: 50px;
+  line-height: 55px;
+  margin-bottom: 10px;
+}
+
+.account__card .back img {
+  width: 85px;
+}
+
+.account__card .btn.btn-secondary {
+  background: linear-gradient(45deg, #4caf50, #81c784);
+  border: none;
+  color: white;
+  padding: 0px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 30px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.account__card .btn.btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.account__card .btn.btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.account__card .bio {
+  font-size: 18px;
+}
+
+.account__card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+
+/* Основний контент справа */
+.account__content_right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Статті */
+.account__content_right .articles_section {
+  margin-top: -37px;
+}
+
+.account__content_right .articles_section h3 {
+  margin-bottom: 10px;
+}
+
+/* Сітка постів */
+.account__content_right .posts_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 в ряд */
+  gap: 20px;
+  max-width: 800px;
+}
+
+.account__content_right .card .card-content {
+  padding: 17px;
+  padding-top: 27px;
+  border-radius: 0 0 2px 2px;
+  position: relative;
+  top: -20px;
+}
+
+/* Карточка поста */
+.account__content_right .card_post {
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: auto;
+  background-color: #fff;
+}
+
+.account__content_right .card-image img {
+  width: 100%;
+  height: auto;
+  
+}
+
+.card-reveal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+}
+
+.account__content_right .post-actions .btn {
+  width: 40px; 
+  height: 40px; 
+  display: flex;
+  justify-content: center;  
+  align-items: center;      
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;       /* Згладжені кути кнопки */
+  transition: background-color 0.3s ease, transform 0.2s ease; 
+  cursor: pointer;
+  box-sizing: border-box;  
+}
+
+
+@media (max-width: 1024px) {
+  .account__row_all {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .account__content_right .card {
+      margin-left: 0; 
+      margin-top: 20px;
+      width: 100%; 
+      max-width: 350px; 
+      text-align: center; 
+  }
+
+  .account__content_right {
+      width: 100%; 
+      text-align: center;
+  }
+
+  .account__content_right .posts_grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 2 колонки навіть на планшетах */
+      gap: 20px;
+      max-width: 800px;
+  }
+}
+
+/* Для мобільних пристроїв – одна колонка */
+@media (max-width: 600px) {
+  .account__content_right .posts_grid {
+      grid-template-columns: repeat(1, 1fr); /* 1 пост на ряд */
+  }
+}
+
+.account__content_right .post-actions .btn.edit {
+  background-color: green;
+  margin-bottom: 9px;
+}
+
+.account__content_right .post-actions .btn.edit:hover {
+  background-color: #4caf50;  /* Зміна фону при наведенні на зелений */
+}
+
+.account__content_right .post-actions .btn.edit:active {
+  background-color: #388e3c;  /* Темніший зелений при натисканні */
+}
+
+/* Кнопка видалення (кошик) червона */
+.account__content_right .post-actions .btn.delete {
+  background-color: red;
+}
+
+.account__content_right .post-actions .btn.delete:hover {
+  background-color: #e53935;  /* Зміна фону при наведенні на червоний */
+}
+
+.account__content_right .post-actions .btn.delete:active {
+  background-color: #c62828;  /* Темніший червоний при натисканні */
+}
+
+.account__content_right h3{
+  text-align: center;
+}
+
+.pagination {
+  margin-top: 50px; /* відстань між постами та пагінацією */
+  display: flex;
+  justify-content: center;
+  gap: 5px; /* Відстань між номерами сторінок */
+}
+
+
+/*========== edit account ==========*/
+
+ .custom-dropdown-content li > a, 
+ .custom-dropdown-content li > span {
+     font-size: 16px;
+     color: green;
+     display: block;
+     line-height: 22px;
+     padding: 14px 16px;
+ }
+
+ .edit_acc_container {
+     display: flex;
+     justify-content: center;
+     align-items: flex-start;
+     height: 100vh;
+     padding: 0;
+ }
+ .edit_acc_container .form-container {
+     background-color: white;
+     padding: 30px;
+     width: 50%;
+     border-radius: 8px;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     padding-top: 0;
+ }
+
+ .edit_acc_container h2, .edit_acc_container h3 {
+     font-family: 'Quodlibet Sans Light', sans-serif;
+     font-size: 28px;
+     font-weight: bold;
+     color: #333;
+     letter-spacing: 4px;
+     text-transform: uppercase;
+     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+     margin-top: 29px;
+     margin-bottom: 10px;
+     padding: 10px;
+     background-color: #dce775;
+     text-align: center;
+ }
+
+ .edit_acc_container .form-group label {
+     color: black;
+ }
+ .edit_acc_container .form-group input,
+ .edit_acc_container .form-group select,
+ .edit_acc_container .form-group textarea {
+     width: 100%;
+     padding: 10px;
+     margin-top: 5px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+ }
+ .edit_acc_container .form-group input,
+ .edit_acc_container .form-group select {
+     height: 70px;
+ }
+ .edit_acc_container .form-group textarea {
+     height: 100px;
+ }
+
+ .edit_acc_container .btn-primary,
+ .edit_acc_container .btn-secondary {
+     margin-top: 20px;
+     background-color: #4CAF50;
+     border-color: #183119;
+     color: white;
+     padding: 0px 24px;
+     font-size: 16px;
+     font-weight: bold;
+     border-radius: 8px;
+     transition: background-color 0.3s ease, transform 0.2s ease;
+     width: auto;
+     display: inline-flex;
+     justify-content: center;
+     align-items: center;
+     text-align: center;
+ }
+ .edit_acc_container .btn-primary:hover,
+ .edit_acc_container .btn-secondary:hover {
+     background-color: #388E3C;
+     border-color: #2C6B2F;
+     transform: translateY(-3px);
+ }
+ .edit_acc_container .btn-primary:active,
+ .edit_acc_container .btn-secondary:active {
+     background-color: #2C6B2F;
+     border-color: #1E4C23;
+     transform: translateY(0);
+ }
+ .edit_acc_container .btn-secondary {
+     margin-left: 40px;
+ }

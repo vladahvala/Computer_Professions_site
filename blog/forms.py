@@ -23,23 +23,17 @@ class CustomUserCreationForm(UserCreationForm):
         self.fields['password2'].widget.attrs.update({'class': 'form-control', 'placeholder':'Підтвердіть пароль...'})
 
 from django import forms
-from .models import Post, Category
+from .models import Post, Category, UserProfile
 
 class PostForm(forms.ModelForm):
-    existing_category = forms.ModelChoiceField(
-        queryset=Category.objects.all(),
-        required=False,
-        empty_label="Оберіть категорію",
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
-    new_category = forms.CharField(
-        required=False,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Або введіть нову категорію'})
+    category = forms.CharField(
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'list': 'category-list', 'placeholder': 'Виберіть або введіть категорію'})
     )
 
     class Meta:
         model = Post
-        fields = ('title', 'text', 'img', 'post_slug', 'existing_category', 'new_category')
+        fields = ('title', 'text', 'img', 'post_slug', 'category')
         
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
@@ -47,40 +41,27 @@ class PostForm(forms.ModelForm):
             'post_slug': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-    def clean(self):
-        cleaned_data = super().clean()
-        existing_category = cleaned_data.get('existing_category')
-        new_category = cleaned_data.get('new_category')
+    def clean_category(self):
+        category_name = self.cleaned_data.get('category').strip()
+        if not category_name:
+            raise forms.ValidationError("Оберіть або введіть категорію.")
 
-        if existing_category and new_category:
-            raise forms.ValidationError("Виберіть існуючу категорію або введіть нову, але не обидва варіанти одночасно.")
-
-        if not existing_category and not new_category:
-            raise forms.ValidationError("Оберіть існуючу категорію або введіть нову.")
-
-        return cleaned_data
+        category, created = Category.objects.get_or_create(name=category_name)
+        return category
 
     def clean_post_slug(self):
         post_slug = self.cleaned_data.get('post_slug')
-        
-        # Check if the slug already exists
-        if Post.objects.filter(post_slug=post_slug).exists():
+        post_id = getattr(self.instance, 'id', None)
+        existing_post = Post.objects.filter(post_slug=post_slug).exclude(id=post_id)
+        print(f"Existing post count: {existing_post.count()}")  # Debugging
+        if existing_post.exists():
             raise forms.ValidationError('Цей slug вже зайнятий. Виберіть інший.')
-
         return post_slug
+
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        new_category_name = self.cleaned_data.get('new_category')
-
-        if new_category_name:
-            category, created = Category.objects.get_or_create(name=new_category_name)
-            instance.category = category
-        else:
-            instance.category = self.cleaned_data.get('existing_category')
-
+        instance.category = self.cleaned_data['category']
         if commit:
             instance.save()
         return instance
-
-

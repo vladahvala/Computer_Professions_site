@@ -4,15 +4,14 @@
     <head>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}?v=1">
-
-        
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}?v=2"> 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        
+        <script src="{% static 'js/main.js' %}"></script>
+
         <!--=============== REMIXICONS ===============-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
-    </head>
+      </head>
 
     
     <body>
@@ -37,7 +36,7 @@
         <li><a href="{% url 'login' %}"><i class="material-icons" id="sidenav_login">login</i>Ввійти</a></li>
         <li><a href="{% url 'logout' %}"><i class="material-icons" id="sidenav_logout">logout</i>Вийти</a></li>
         <li><a href="{% url 'add_post' %}"><i class="material-icons" id="sidenav_add">add</i>Додати пост</a></li>
-        
+        <li><a href="{% url 'account' %}"><i class="material-icons" id="sidenav_add">person</i>Акаунт</a></li>
         <!-- Випадаюче меню для категорій -->
         <li>
           <a href="#!" class="dropdown-trigger-mob" data-target="dropMenu"><i class="material-icons" id="sidenav_cat">category</i>Категорії</a>
@@ -67,7 +66,7 @@
                     <li><a class="waves-effect waves-light black-text" href="/posts">Всі спеціальності</a></li>
                     <li>
                       <a href="/posts" class="nav__categories dropdown-trigger btn hide-on-med-and-down #8bc34a light-green black-text" data-target='dropMenu'>
-                        категорії
+                        категорія{% if selected_category %}: {{ selected_category.name }}{% endif %}
                       </a>
                     </li>
                     <li>
@@ -77,9 +76,11 @@
                       </a>
                     </li>
                     <li>
-                      <a href="/admin" class="nav__actions"><i class="ri-user-line"></i>
+                      <!-- <a href="/admin" class="nav__actions"><i class="ri-user-line"></i>
                         <span class="icon-label">Адмін</span> 
-                      </a>
+                      </a> -->
+                    <li>
+                    
                       </a>
                     </li>
                   
@@ -119,48 +120,12 @@
               </div>
             </nav>
           </div>
-            
-        <script>  
-            document.addEventListener('DOMContentLoaded', function() {
-              var sidebarDropdowns = document.querySelectorAll('.dropdown-trigger');
-              M.Dropdown.init(sidebarDropdowns, {
-                  outDuration: 1000,
-                  hover: true
-              });
-
-              var navbarDropdowns = document.querySelectorAll('.dropdown-trigger-mob');
-              M.Dropdown.init(navbarDropdowns, {
-                  outDuration: 1000,
-                  hover: true
-              });
-          });
-
-        </script>
-
-        <script>
-              const slide_menu = document.querySelectorAll(".sidenav");
-              M.Sidenav.init(slide_menu, {});
-        </script>
 
         <br>
 
         {% block content %}
         {% endblock %}
- 
-        <!-- {% if messages %}
-        <script> 
-          M.AutoInit();
-          {% for msg in messages %}
-            {% if msg.tags == 'error' %}
-              M.toast({html: "{{msg}}", classes: "orange"});
-            {% elif msg.tags == 'success' %}
-              M.toast({html: "{{msg}}", classes: "green"});
-            {% elif msg.tags == 'info' %}
-              M.toast({html: "{{msg}}", classes: "blue"});
-            {% endif %}
-          {% endfor %}
-        </script> 
-      {% endif %} -->
+
     </body>
 
 </html>

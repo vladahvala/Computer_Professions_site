@@ -9,7 +9,7 @@ class UserProfile(models.Model):
     username = models.CharField(max_length=200)
     profession = models.CharField(max_length=200)
     picture = models.ImageField(upload_to='img', blank=True, null=True, default='profile/default_user_img.jpg')
-    about = models.TextField()
+    about = models.TextField(max_length=205)
 
     profile_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
