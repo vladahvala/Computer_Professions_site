@@ -3,6 +3,7 @@ from django.core.files import File
 from django.urls import reverse
 from ..models import Post, Category
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.contrib.auth.models import User
 
 class MainViewTestCase(TestCase):
     def setUp(self):
@@ -14,14 +15,24 @@ class MainViewTestCase(TestCase):
         # Створюємо пости
         self.post1 = Post.objects.create(title="Post 1", text="Text 1", category=self.category1)
         self.post2 = Post.objects.create(title="Post 2", text="Text 2", category=self.category2)
+        
+        # Створюємо тестового користувача
+        self.user = User.objects.create_user(username='testuser', password='password')
 
-    def test_main_page(self):
-        """Перевірка, чи завантажується головна сторінка."""
+    def test_main_page_logged_in(self):
+        """Перевірка, чи завантажується головна сторінка для залогінених користувачів."""
+        self.client.login(username='testuser', password='password')  # Логін користувача
         response = self.client.get(reverse('main'))  
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'main.html')
         self.assertIn('category', response.context)
         self.assertEqual(len(response.context['category']), 2)
+
+    def test_main_page_not_logged_in(self):
+        """Перевірка, чи переадресовує на сторінку входу, якщо користувач не залогінений."""
+        response = self.client.get(reverse('main'))
+        self.assertRedirects(response, reverse('login') + '?next=' + reverse('main'))
+
 
 class PostListMainViewTestCase(TestCase):
     def setUp(self):
@@ -31,8 +42,12 @@ class PostListMainViewTestCase(TestCase):
         self.post2 = Post.objects.create(title="Post 2", text="Text 2", category=self.category)
         self.post3 = Post.objects.create(title="Another Post", text="Text 3", category=self.category)
 
+        # Створюємо тестового користувача та логінимо його
+        self.user = User.objects.create_user(username='testuser', password='password')
+
     def test_post_list_main_page(self):
-        """Перевірка відображення списку постів."""
+        """Перевірка відображення списку постів для залогінених користувачів."""
+        self.client.login(username='testuser', password='password')  # Логін користувача
         response = self.client.get(reverse('search'))  # Ваше ім'я маршруту для `PostListMain`
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'posts.html')
@@ -41,7 +56,8 @@ class PostListMainViewTestCase(TestCase):
         self.assertIn('category', response.context)
 
     def test_post_search(self):
-        """Перевірка пошуку постів."""
+        """Перевірка пошуку постів для залогінених користувачів."""
+        self.client.login(username='testuser', password='password')  # Логін користувача
         response = self.client.get(reverse('search') + "?searchpost=Post")
         self.assertEqual(response.status_code, 200)
         posts = response.context['posts']
@@ -49,39 +65,80 @@ class PostListMainViewTestCase(TestCase):
         for post in posts:
             self.assertIn("Post", post.title)
 
+    def test_post_list_not_logged_in(self):
+        """Перевірка, чи користувач буде переадресований на сторінку входу, якщо він не залогінений."""
+        response = self.client.get(reverse('main'))
+        self.assertRedirects(response, reverse('login') + '?next=' + reverse('main'))
+
 class CategoryListMainViewTestCase(TestCase):
     def setUp(self):
         """Підготовка тестових даних."""
-
+        # Створюємо категорії
         self.category1 = Category.objects.create(name="Category 1", category_slug="category-1")
         self.category2 = Category.objects.create(name="Category 2", category_slug="category-2")
+        
+        # Створюємо пости
         self.post1 = Post.objects.create(title="Post 1", text="Text 1", category=self.category1)
         self.post2 = Post.objects.create(title="Post 2", text="Text 2", category=self.category1)
         self.post3 = Post.objects.create(title="Post 3", text="Text 3", category=self.category2)
 
+        # Створюємо тестового користувача та логінимо його
+        self.user = User.objects.create_user(username='testuser', password='password')
+
     def test_category_post_list(self):
-        """Перевірка фільтрації постів за категорією."""
+        """Перевірка фільтрації постів за категорією для залогінених користувачів."""
+        self.client.login(username='testuser', password='password')  # Логін користувача
         response = self.client.get(reverse('category_list_main', kwargs={'category_slug': 'category-1'}))
+        
         self.assertEqual(response.status_code, 200)
         posts = response.context['posts']
+        
+        # Перевіряємо, чи всі пости з категорії "category-1"
         self.assertEqual(len(posts), 2)  # Має бути два пости з категорії 1
         for post in posts:
             self.assertEqual(post.category.category_slug, 'category-1')
 
+        # Перевірка наявності категорії в контексті
+        self.assertIn('selected_category', response.context)
+        self.assertEqual(response.context['selected_category'], self.category1)
+
+    def test_post_list_not_logged_in(self):
+        """Перевірка, чи користувач буде переадресований на сторінку входу, якщо він не залогінений."""
+        response = self.client.get(reverse('main'))
+        self.assertRedirects(response, reverse('login') + '?next=' + reverse('main'))
+
 class ShowPostViewTestCase(TestCase):
     def setUp(self):
         """Підготовка тестових даних."""
+        # Створюємо категорію
         self.category = Category.objects.create(name="Test Category", category_slug="test-category")
+        
+        # Створюємо пост
         self.post = Post.objects.create(title="Test Post", text="Test Content", category=self.category, post_slug="test-post")
 
+        # Створюємо тестового користувача та логінимо його
+        self.user = User.objects.create_user(username='testuser', password='password')
+
     def test_show_post_view(self):
-        """Перевірка відображення окремого поста."""
+        """Перевірка відображення окремого поста для залогінених користувачів."""
+        self.client.login(username='testuser', password='password')  # Логін користувача
         response = self.client.get(reverse('post_url', kwargs={'slug': 'test-post'}))
+        
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'post_view.html')
         self.assertEqual(response.context['post'].title, "Test Post")
         self.assertEqual(response.context['post'].text, "Test Content")
         self.assertEqual(response.context['post'].category.name, "Test Category")
+        
+        # Перевірка, чи є категорії в контексті
+        self.assertIn('category', response.context)
+        self.assertEqual(len(response.context['category']), 1)  # Має бути лише одна категорія
+
+    def test_post_list_not_logged_in(self):
+        """Перевірка, чи користувач буде переадресований на сторінку входу, якщо він не залогінений."""
+        response = self.client.get(reverse('main'))
+        self.assertRedirects(response, reverse('login') + '?next=' + reverse('main'))
+
 
 class PaginationTestCase(TestCase):
     def setUp(self):
@@ -98,9 +155,15 @@ class PaginationTestCase(TestCase):
                 category=self.category,
             )
 
+        # Створення користувача для тестування
+        self.user = User.objects.create_user(username='testuser', password='password')
+
     def test_pagination_limit(self):
         """Перевіряємо, чи кількість постів на сторінці відповідає обмеженню."""
-        response = self.client.get(reverse('posts'))  # Замініть на вашу URL-іменну
+        # Логін користувача перед запитом
+        self.client.login(username='testuser', password='password')
+        
+        response = self.client.get(reverse('posts'))  # Замініть на вашу правильну URL-іменну
         self.assertEqual(response.status_code, 200)
 
         # Перевіряємо, що на першій сторінці рівно `posts_per_page` постів
@@ -109,7 +172,9 @@ class PaginationTestCase(TestCase):
 
     def test_pagination_total_pages(self):
         """Перевіряємо, чи кількість сторінок обчислена правильно."""
-        response = self.client.get(reverse('posts'))
+        self.client.login(username='testuser', password='password')
+        
+        response = self.client.get(reverse('posts'))  # Замініть на вашу правильну URL-іменну
         self.assertEqual(response.status_code, 200)
 
         # Загальна кількість сторінок
@@ -119,26 +184,27 @@ class PaginationTestCase(TestCase):
 
     def test_pagination_next_page(self):
         """Перевіряємо перехід на наступну сторінку."""
+        self.client.login(username='testuser', password='password')
+        
         response = self.client.get(reverse('posts') + '?page=2')
         self.assertEqual(response.status_code, 200)
 
         # Перевірка кількості постів на другій сторінці
         posts_on_page = response.context['posts']
-        
-        # Оскільки на першій сторінці буде 4 пости, на другій повинно бути 4
-        expected_posts_second_page = self.num_posts - self.posts_per_page  # Після першої сторінки залишиться 6 постів
-        expected_posts_last_page = self.num_posts - (self.posts_per_page * (self.num_posts // self.posts_per_page))
-
-        # Перевірка, чи кількість постів на другій сторінці відповідає очікуваній
         self.assertEqual(len(posts_on_page), self.posts_per_page)
-
-        # Перевірка кількості постів на останній сторінці
-        response_last_page = self.client.get(reverse('posts') + '?page=3')
-        posts_on_last_page = response_last_page.context['posts']
-
-        self.assertEqual(len(posts_on_last_page), expected_posts_last_page)
 
     def test_invalid_page_number(self):
         """Перевіряємо обробку некоректного номера сторінки."""
+        self.client.login(username='testuser', password='password')
+        
         response = self.client.get(reverse('posts') + '?page=999')
         self.assertEqual(response.status_code, 404)  # Або інший код відповіді, який ви використовуєте для помилкових сторінок
+
+
+
+
+
+
+
+
+

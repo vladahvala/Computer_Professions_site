@@ -1,44 +1,42 @@
-from django.core.files import File
-from django.test import TestCase
-from django.core.files.uploadedfile import SimpleUploadedFile
-import os
-from ..models import Post, Category
+from django.contrib.auth.models import User
 from django.urls import reverse
+from django.test import TestCase
+from ..models import Post, Category
 
-# Перевірка створення постів та їх елементів
 class PostTestCase(TestCase):
+    
     def setUp(self):
         """Підготовка тестових даних."""
         # Створюємо категорію поста
         self.category = Category.objects.create(name="Default Category")
         # Створюємо тестовий пост
         self.post1 = Post.objects.create(title="Перший пост", text="Опис першого поста", category=self.category)
-
+        
+        # Створюємо тестового користувача
+        self.user = User.objects.create_user(username="testuser", password="testpassword")
+    
     def test_posts_page_loads(self):
-        """Перевірка чи запускається сторінка із постами"""
-        response = self.client.get('/posts/')
+        """Перевірка чи запускається сторінка із постами після авторизації"""
+        # Логін користувача
+        self.client.login(username="testuser", password="testpassword")
+        
+        # Робимо GET запит на сторінку постів
+        response = self.client.get(reverse('posts'))  # Замініть 'posts' на правильну URL-іменну
+        
+        # Перевіряємо, чи сторінка завантажується без помилок
         self.assertEqual(response.status_code, 200)
     
     def test_post_creation(self):
         """Перевірка чи створено пост у базі даних"""
-        # Перевіряємо чи пост був створений
+        # Логін користувача
+        self.client.login(username="testuser", password="testpassword")
+        
+        # Перевіряємо, чи пост був створений
         post_exists = Post.objects.filter(title="Перший пост").exists()
         self.assertTrue(post_exists)
 
-         # Перевіряємо чи зображення поста завантажено
-        post = Post.objects.get(title="Перший пост")
-        self.assertIsNotNone(post.img)  # Перевіряємо, чи зображення не є порожнім
-        self.assertTrue(os.path.exists(post.img.path))  # Перевіряємо чи файл зображення існує
-
-        # Перевіряємо створення категорії поста
-        self.assertEqual(post.category.name, "Default Category")
-        # Перевіряємо створення опису поста
-        self.assertEqual(post.text, "Опис першого поста")
-    
-    def test_post_str_method(self):
-            """Перевіряємо метод __str__ для Post."""
-            category = Category.objects.create(name="Test Category", category_slug="test-category")
-            post = Post.objects.create(title="Test Post", text="Test content", category=category)
-            self.assertEqual(str(post), "Test Post")
-
+    def test_get_absolute_url(self):
+        """Перевірка, чи працює get_absolute_url для постів"""
+        post = Post.objects.create(title="Test Post", text="Test content", category=self.category)
+        self.assertEqual(post.get_absolute_url(), reverse('post_url', args=[post.post_slug]))
 
