@@ -91,14 +91,25 @@ def delete_post(request, post_slug):
 
 # Функція для редагування посту
 def UpdateProfile(request):
-    profile = request.user.userprofile
-    form = UpdateProfileForm(instance= profile)
-    if request.method=='POST':
+    profile = request.user.userprofile  # Assuming your UserProfile is related to User
+    form = UpdateProfileForm(instance=profile)
+
+    if request.method == 'POST':
         form = UpdateProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            form.save()
-            messages.info(request, 'You updated your Profile')
-            return redirect('account')
+            # Save the profile data
+            profile = form.save(commit=False)
+            
+            # Now, update the User's username if it's changed
+            user = request.user
+            new_username = form.cleaned_data['username']
+            if new_username != user.username:
+                user.username = new_username
+                user.save()
+
+            profile.save()  # Save the profile with the updated data
+            messages.info(request, 'You updated your profile successfully!')
+            return redirect('account')  # Adjust to your desired redirect
+
     context = {'form': form}
     return render(request, 'profiles/updateprofile.html', context)
-
